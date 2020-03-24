@@ -15,6 +15,8 @@ Petit turotiel rapide de l'utilisation du logiciel :
 -> Ca evite de modifier ce qui marche bien, pour ajouter d'éventuelles erreurs
 -> Ca vous permet d'être sûr qu'il n'y aura pas de conflits, au cas où quelqu'un travaillerais déjà sur la branche
 
+===> Pensez à mettre votre branche de travail dans la zone en ligne, sinon les autres ne la verront pas !
+
 4°) Quand vous voulez enregistrer des modifs (faite le régulièrement si possible) : 
 	a°) cliquez sur "View change" en haut à droite
 	b°) Chosissez les modifs à enregistrer, soit avec "Stage all changes" soit en choississant vos modifs une à une avec les "Stage File"
