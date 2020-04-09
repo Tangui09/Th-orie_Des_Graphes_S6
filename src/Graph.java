@@ -129,7 +129,91 @@ public class Graph
 	
 	public void matrice_adjacence()
 	{
-		System.out.println("\nMatrice d'adjacence");
+		System.out.println("\nMatrice d'adjacence\n");
+		
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+		{ System.out.print("\t" + this.liste_sommets.get(i).getNom()); }
+		
+		System.out.print("\n");
+		
+		for(int j = 0 ; j < this.liste_sommets.size() ; j++)							//Vérifier pour chaque sommets
+		{
+			System.out.print(this.liste_sommets.get(j).getNom());						//Afficher le nom du sommet en début de ligne
+			
+			for(int k = 0 ; k < this.liste_sommets.size() ; k++)						// Vérifier s'il y a un arc vers chacun des autres sommets
+			{
+				if(this.liste_sommets.get(j).get_nb_arc() == 0)							// Si aucun arc n'a pour départ le sommet étudier
+				{
+					System.out.print("\tF");											// Se décaler et afficher X
+				}
+				else
+				{
+					int condition = 0;
+					for(int l = 0 ; l < this.liste_sommets.get(j).get_nb_arc() ; l++)	// Vérifier chacun des arcs partant du sommet
+					{
+						if(this.liste_sommets.get(j).getArc(l).getSuccesseur().equals(this.liste_sommets.get(k).getNom()))		// Si un arc correspond
+						{
+							condition = 1;
+						}
+					}
+					if(condition == 1)
+					{
+						System.out.print("\tV");
+					}
+					else
+					{
+						System.out.print("\tF");
+					}
+				}
+			}
+			System.out.print("\n");
+		}
 	}
+	
+	public void matrice_valeur()
+	{
+		System.out.println("\nMatrice des valeurs\n");
+		
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+		{ System.out.print("\t" + this.liste_sommets.get(i).getNom()); }
+		
+		System.out.print("\n");
+		
+		for(int j = 0 ; j < this.liste_sommets.size() ; j++)							//Vérifier pour chaque sommets
+		{
+			System.out.print(this.liste_sommets.get(j).getNom());						//Afficher le nom du sommet en début de ligne
+			
+			for(int k = 0 ; k < this.liste_sommets.size() ; k++)						// Vérifier s'il y a un arc vers chacun des autres sommets
+			{
+				if(this.liste_sommets.get(j).get_nb_arc() == 0)							// Si aucun arc n'a pour départ le sommet étudier
+				{
+					System.out.print("\t*");											// Se décaler et afficher X
+				}
+				else
+				{
+					int condition = 0;
+					int position = 0;
+					for(int l = 0 ; l < this.liste_sommets.get(j).get_nb_arc() ; l++)	// Vérifier chacun des arcs partant du sommet
+					{
+						if(this.liste_sommets.get(j).getArc(l).getSuccesseur().equals(this.liste_sommets.get(k).getNom()))		// Si un arc correspond
+						{
+							position = l;
+							condition = 1;
+						}
+					}
+					if(condition == 1)
+					{
+						System.out.print("\t" + this.liste_sommets.get(j).getArc(position).getValeur());
+					}
+					else
+					{
+						System.out.print("\t*");
+					}
+				}
+			}
+			System.out.print("\n");
+		}
+	}
+	
 	/// METHODES ///
 }
