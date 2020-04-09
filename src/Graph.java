@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Graph 
 {
 	private int nb_sommets;
-	private int nb_transition;
+	private int nb_arc;
 	private ArrayList<Sommet> liste_sommets = new ArrayList<Sommet>();
 	
 	private Scanner sc;
@@ -65,9 +65,9 @@ public class Graph
 	public int get_nb_transition()
 	{
 		for(int i = 0 ; i < this.get_nb_sommets() ; i++)
-		{ this.nb_transition += this.liste_sommets.get(i).get_nb_transitions(); }
+		{ this.nb_arc += this.liste_sommets.get(i).get_nb_arc(); }
 		
-		return nb_transition;
+		return nb_arc;
 	}
 	
 	/// GETTER AND SETTER ///
@@ -95,20 +95,24 @@ public class Graph
 		
 		for(int i = 0 ; i < this.get_nb_sommets() ; i++)
 		{
-			if(liste_sommets.get(i).get_nb_transitions() == 0)
+			if(liste_sommets.get(i).get_nb_arc() == 0)
 			{
 				System.out.println(liste_sommets.get(i).getNom());
 			}
 			else
 			{
-				for(int j = 0 ; j < liste_sommets.get(i).get_nb_transitions() ; j++)
+				for(int j = 0 ; j < liste_sommets.get(i).get_nb_arc() ; j++)
 				{
-					Transition t = liste_sommets.get(i).getTransition(j);
+					Arc t = liste_sommets.get(i).getArc(j);
 					System.out.println(liste_sommets.get(i).getNom() + " -> " + t.getSuccesseur() + " = " + t.getValeur());
 				}
 			}
 		}
 	}
 	
+	public void matrice_adjacence()
+	{
+		
+	}
 	/// METHODES ///
 }
