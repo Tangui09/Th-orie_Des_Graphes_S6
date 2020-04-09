@@ -1,5 +1,5 @@
 
-public class Transition 
+public class Arc 
 {
 
 	private String successeur;
@@ -9,7 +9,7 @@ public class Transition
 	
 	/// CONSTRUCTEUR ///
 	
-	public Transition(String successeur, int valeur_trans) 
+	public Arc(String successeur, int valeur_trans) 
 	{
 		this.setSuccesseur(successeur);
 		this.setValeur(valeur_trans);

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Sommet 
 {
 	private String nom;
-	private ArrayList<Transition> liste_transitions = new ArrayList<Transition>();
+	private ArrayList<Arc> liste_arcs = new ArrayList<Arc>();
 	
 	
 	
@@ -22,12 +22,9 @@ public class Sommet
 	
 	public void nouvelle_transition(String successeur, int valeur_trans)
 	{
-		Transition trans = new Transition(successeur, valeur_trans);
-		liste_transitions.add(trans);
+		Arc trans = new Arc(successeur, valeur_trans);
+		liste_arcs.add(trans);
 	}
-	
-	public int nombre_de_transitions()
-	{ return liste_transitions.size(); }
 	
 	/// METHODES ///
 	
@@ -41,11 +38,11 @@ public class Sommet
 	public void setNom(String nom) 
 	{ this.nom = nom; }
 
-	public int get_nb_transitions() 
-	{ return liste_transitions.size(); }
+	public int get_nb_arc() 
+	{ return liste_arcs.size(); }
 	
-	public Transition getTransition(int position)
-	{ return liste_transitions.get(position); }
+	public Arc getArc(int position)
+	{ return liste_arcs.get(position); }
 	
 	/// GETTER ET SETTER ///
 }
