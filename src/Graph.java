@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Graph 
 {
 	private int nb_sommets;
+	private int nb_transition;
 	private ArrayList<Sommet> liste_sommets = new ArrayList<Sommet>();
 	
 	private Scanner sc;
@@ -61,13 +62,21 @@ public class Graph
 	public void set_nb_sommets(int nb_sommets) 
 	{ this.nb_sommets = nb_sommets; }
 	
+	public int get_nb_transition()
+	{
+		for(int i = 0 ; i < this.get_nb_sommets() ; i++)
+		{ this.nb_transition += this.liste_sommets.get(i).get_nb_transitions(); }
+		
+		return nb_transition;
+	}
+	
 	/// GETTER AND SETTER ///
 	
 	
 	
 	/// METHODES ///
 	
-	public int sommet_existant(String new_sommet)
+ 	public int sommet_existant(String new_sommet)
 	{
 		for(int i = 0 ; i < liste_sommets.size() ; i++)
 		{
@@ -81,7 +90,9 @@ public class Graph
 	
 	public void afficher_graph()
 	{
-		System.out.println("Ce graph possède " + this.get_nb_sommets() + " sommets !\n");
+		System.out.println("\nCe graph possède " + this.get_nb_sommets() + " sommets !");
+		System.out.println("Ce graph possède " + this.get_nb_transition() + " arcs !\n");
+		
 		for(int i = 0 ; i < this.get_nb_sommets() ; i++)
 		{
 			if(liste_sommets.get(i).get_nb_transitions() == 0)
@@ -93,7 +104,7 @@ public class Graph
 				for(int j = 0 ; j < liste_sommets.get(i).get_nb_transitions() ; j++)
 				{
 					Transition t = liste_sommets.get(i).getTransition(j);
-					System.out.println(liste_sommets.get(i).getNom() + "\t" + t.getSuccesseur() + "\t" + t.getValeur());
+					System.out.println(liste_sommets.get(i).getNom() + " -> " + t.getSuccesseur() + " = " + t.getValeur());
 				}
 			}
 		}
