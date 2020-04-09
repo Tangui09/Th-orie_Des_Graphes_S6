@@ -47,6 +47,7 @@ public class Graph
 			}
 		}catch(Exception e) {}
 		
+		this.classer_liste_sommets();
 		this.set_nb_sommets(liste_sommets.size());
 	}
 	
@@ -75,6 +76,22 @@ public class Graph
 	
 	
 	/// METHODES ///
+	
+	private void classer_liste_sommets()
+	{
+		ArrayList<Sommet> tempo_liste_sommets = new ArrayList<Sommet>();
+		
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+		{
+			for(int j = 0 ; j < this.liste_sommets.size() ; j++)
+			{	
+				if(Integer.parseInt(this.liste_sommets.get(j).getNom()) == i)
+				{ tempo_liste_sommets.add(this.liste_sommets.get(j)); }
+			}
+		}
+
+		this.liste_sommets = tempo_liste_sommets;
+	}
 	
  	public int sommet_existant(String new_sommet)
 	{
@@ -112,7 +129,7 @@ public class Graph
 	
 	public void matrice_adjacence()
 	{
-		
+		System.out.println("\nMatrice d'adjacence");
 	}
 	/// METHODES ///
 }
