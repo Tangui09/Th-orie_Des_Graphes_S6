@@ -22,6 +22,7 @@ public class Main {
 			System.out.println("0°) Quitter l'application");
 			System.out.println("1°) Afficher le graph");
 			System.out.println("2°) Afficher la matrice d'adjacence et la matrice de valeur");
+			System.out.println("3°) Détéction de circuit");
 			
 			System.out.print("\nNuméro de l'action à faire : ");
 			sc1 = new Scanner(System.in);
@@ -42,6 +43,11 @@ public class Main {
 			    graph.matrice_valeur();
 			    x = -1;
 			    break;
+			    
+			  case 3:
+					graph.detection_circuit();
+					x = -1;
+				    break;
 			    
 			  default:
 				  System.out.println("Veuillez choisir un numéro cohérent !");
