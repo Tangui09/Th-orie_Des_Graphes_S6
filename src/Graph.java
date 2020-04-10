@@ -218,64 +218,71 @@ public class Graph
 	public void detection_circuit()
 	{
 		boolean entree_restante = true;
-		ArrayList<Sommet> liste_sommets_circuit = this.liste_sommets;
+		ArrayList<Sommet> liste_sommets_circuit = new ArrayList<Sommet>();
+		liste_sommets_circuit.addAll(this.liste_sommets);
+		
+		ArrayList<Sommet> liste_sommets_hors_circuit = new ArrayList<Sommet>();		// On supprimera les sommets pouvant faire partie d'un circuit
 		
 		while(entree_restante == true)
 		{
-			ArrayList<Sommet> liste_sommets_hors_circuit = new ArrayList<Sommet>();		// On supprimera les sommets pouvant faire partie d'un circuit
 			liste_sommets_hors_circuit.addAll(liste_sommets_circuit);
 			
 			System.out.println("Points d'entrée :");
 			for(int i = 0; i < liste_sommets_circuit.size() ; i++)						// On vérifie pour tous les sommets restant
 			{
-				System.out.println("Sommet étudié : " + liste_sommets_circuit.get(i).getNom());
-				
 				if(liste_sommets_circuit.get(i).get_nb_arc() != 0)						// Si des arcs partent depuis le sommet sommet
 				{
 					for(int j = 0 ; j < this.liste_sommets.get(i).get_nb_arc() ; j++)			// On vérifie pour chacun des arcs
 					{
 						int position = 0;
-						for(int k = 0 ; k < liste_sommets_circuit.size() ; k++)
+						for(int k = 0 ; k < liste_sommets_hors_circuit.size() ; k++)
 						{
 							
-							if(liste_sommets_circuit.get(i).getArc(j).getSuccesseur().equals(liste_sommets_circuit.get(k).getNom()))	// Si le successeur est un sommet encore présent	
+							if(liste_sommets_circuit.get(i).getArc(j).getSuccesseur().equals(liste_sommets_hors_circuit.get(position).getNom()))	// Si le successeur est un sommet encore présent	
 							{																											// Alors il peut faire partie d'un circuit
-								System.out.println(liste_sommets_hors_circuit.get(position).getNom());
 								liste_sommets_hors_circuit.remove(position);															// On le retire des sommets potentiellement hors circuit
 								position -= 1;
-								
 							}
-							
-							
+							position += 1;
 						}
-					}
-					
-					/*
-					if(liste_sommets_hors_circuit.size() != 0)																		// Si des sommets sont des points d'entrée
-					{
-						for(int nb_sommet = 0 ; nb_sommet < liste_sommets_hors_circuit.size() ; nb_sommet++)
-						{
-							System.out.print(liste_sommets_hors_circuit.get(nb_sommet).getNom() + " ");								// Afficher les noms des sommets
-							
-							for(int elimination = 0 ; elimination < liste_sommets_circuit.size() ; elimination++)
-							{
-								if(liste_sommets_circuit.get(elimination).getNom().equals(liste_sommets_hors_circuit.get(nb_sommet).getNom()))		// Eliminer les sommets correspondant
-								{ liste_sommets_circuit.remove(elimination); }
-							}
-						}
-						System.out.print("\n");
-					}
-					else
-					{
-						System.out.print("Aucun !");
-						entree_restante = false;
-					}*/
-					
+					}	
 				}
 			}
-			entree_restante = false;
+			
+			if(liste_sommets_hors_circuit.size() != 0)																		// Si des sommets sont des points d'entrée
+			{
+				for(int nb_sommet = 0 ; nb_sommet < liste_sommets_hors_circuit.size() ; nb_sommet++)
+				{
+					System.out.print(liste_sommets_hors_circuit.get(nb_sommet).getNom() + " ");								// Afficher les noms des sommets
+					
+					for(int elimination = 0 ; elimination < liste_sommets_circuit.size() ; elimination++)
+					{
+						if(liste_sommets_circuit.get(elimination).getNom().equals(liste_sommets_hors_circuit.get(nb_sommet).getNom()))		// Eliminer les sommets correspondant
+						{ 
+							liste_sommets_circuit.remove(elimination); 
+						}
+					}
+				}
+				liste_sommets_hors_circuit.clear();
+				System.out.print("\n");
+			}
+			else
+			{
+				System.out.println("Aucun !");
+				
+				if(liste_sommets_circuit.size() == 0)
+				{
+					System.out.println("Il n'y a pas de circuit dans ce graph !");
+				}
+				else
+				{
+					System.out.println("Attention ! Il y a un circuit dans ce graph !");
+				}
+				
+				entree_restante = false;
+			}
 		}
-		
 	}
+	
 	/// METHODES ///
 }
