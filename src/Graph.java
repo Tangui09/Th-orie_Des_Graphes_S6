@@ -22,8 +22,7 @@ public class Graph
 			sc = new Scanner(new File(nom_fichier));
 			while(sc.hasNext())
 			{
-
-				String  ligne = sc.nextLine();    
+				String ligne = sc.nextLine();    
 			    String[] strs = ligne.trim().split("\\s+");
 			    
 			    if(strs.length == 1)
@@ -37,11 +36,11 @@ public class Graph
 			    	{
 			    		Sommet nouveau_sommet = new Sommet(strs[0]);
 				    	liste_sommets.add(nouveau_sommet);
-				    	nouveau_sommet.nouvelle_transition(strs[1], Integer.parseInt(strs[2]));
+				    	nouveau_sommet.nouvel_arc(strs[1], Integer.parseInt(strs[2]));
 			    	}
 			    	else
 			    	{
-			    		liste_sommets.get(sommet_existant(strs[0])).nouvelle_transition(strs[1], Integer.parseInt(strs[2]));;
+			    		liste_sommets.get(sommet_existant(strs[0])).nouvel_arc(strs[1], Integer.parseInt(strs[2]));;
 			    	}
 			    }
 			}
@@ -239,9 +238,9 @@ public class Graph
 						{
 							
 							if(liste_sommets_circuit.get(i).getArc(j).getSuccesseur().equals(liste_sommets_hors_circuit.get(position).getNom()))	// Si le successeur est un sommet encore présent	
-							{																											// Alors il peut faire partie d'un circuit
-								liste_sommets_hors_circuit.remove(position);															// On le retire des sommets potentiellement hors circuit
-								position -= 1;
+							{																														// Alors il peut faire partie d'un circuit
+								liste_sommets_hors_circuit.remove(position);																		// On le retire des sommets potentiellement hors circuit
+								position -= 1;																										
 							}
 							position += 1;
 						}
@@ -278,7 +277,6 @@ public class Graph
 				{
 					System.out.println("Attention ! Il y a un circuit dans ce graph !");
 				}
-				
 				entree_restante = false;
 			}
 		}
