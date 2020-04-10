@@ -222,24 +222,35 @@ public class Graph
 		
 		while(entree_restante == true)
 		{
-			ArrayList<Sommet> liste_sommets_hors_circuit = liste_sommets_circuit;		// On supprimera les sommets pouvant faire partie d'un circuit
+			ArrayList<Sommet> liste_sommets_hors_circuit = new ArrayList<Sommet>();		// On supprimera les sommets pouvant faire partie d'un circuit
+			liste_sommets_hors_circuit.addAll(liste_sommets_circuit);
 			
 			System.out.println("Points d'entrée :");
 			for(int i = 0; i < liste_sommets_circuit.size() ; i++)						// On vérifie pour tous les sommets restant
 			{
+				System.out.println("Sommet étudié : " + liste_sommets_circuit.get(i).getNom());
+				
 				if(liste_sommets_circuit.get(i).get_nb_arc() != 0)						// Si des arcs partent depuis le sommet sommet
 				{
 					for(int j = 0 ; j < this.liste_sommets.get(i).get_nb_arc() ; j++)			// On vérifie pour chacun des arcs
 					{
+						int position = 0;
 						for(int k = 0 ; k < liste_sommets_circuit.size() ; k++)
 						{
+							
 							if(liste_sommets_circuit.get(i).getArc(j).getSuccesseur().equals(liste_sommets_circuit.get(k).getNom()))	// Si le successeur est un sommet encore présent	
 							{																											// Alors il peut faire partie d'un circuit
-								liste_sommets_hors_circuit.remove(k);																	// On le retire des sommets potentiellement hors circuit
+								System.out.println(liste_sommets_hors_circuit.get(position).getNom());
+								liste_sommets_hors_circuit.remove(position);															// On le retire des sommets potentiellement hors circuit
+								position -= 1;
+								
 							}
+							
+							
 						}
 					}
 					
+					/*
 					if(liste_sommets_hors_circuit.size() != 0)																		// Si des sommets sont des points d'entrée
 					{
 						for(int nb_sommet = 0 ; nb_sommet < liste_sommets_hors_circuit.size() ; nb_sommet++)
@@ -258,9 +269,11 @@ public class Graph
 					{
 						System.out.print("Aucun !");
 						entree_restante = false;
-					}
+					}*/
+					
 				}
 			}
+			entree_restante = false;
 		}
 		
 	}
