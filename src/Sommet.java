@@ -20,7 +20,7 @@ public class Sommet
 	
 	/// METHODES ///
 	
-	public void nouvelle_transition(String successeur, int valeur_trans)
+	public void nouvel_arc(String successeur, int valeur_trans)
 	{
 		Arc trans = new Arc(successeur, valeur_trans);
 		liste_arcs.add(trans);

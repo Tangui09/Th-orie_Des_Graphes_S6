@@ -22,26 +22,28 @@ public class Graph
 			sc = new Scanner(new File(nom_fichier));
 			while(sc.hasNext())
 			{
-
-				String  ligne = sc.nextLine();    
-			    String[] strs = ligne.trim().split("\\s+");
+				String ligne = sc.nextLine();    													// Récupérer la ligne
+			    String[] strs = ligne.trim().split("\\s+");											// Créer un tableau avec chaque élément de le ligne séparé par un espace
 			    
-			    if(strs.length == 1)
+			    if(strs.length == 1)																// Si le sommet est sans arc
 			    {
-			    	Sommet nouveau_sommet = new Sommet(strs[0]);
-			    	liste_sommets.add(nouveau_sommet);
+			    	if(sommet_existant(strs[0]) == -1)												// Si le sommet n'existe pas encore
+			    	{
+			    		Sommet nouveau_sommet = new Sommet(strs[0]);								// Créer un nouveau sommet
+			    		liste_sommets.add(nouveau_sommet);											// L'ajouter à la liste
+			    	}
 			    }
 			    else
 			    {
-			    	if(sommet_existant(strs[0]) == -1)
+			    	if(sommet_existant(strs[0]) == -1)												// Si le sommet n'existe pas encore
 			    	{
-			    		Sommet nouveau_sommet = new Sommet(strs[0]);
-				    	liste_sommets.add(nouveau_sommet);
-				    	nouveau_sommet.nouvelle_transition(strs[1], Integer.parseInt(strs[2]));
+			    		Sommet nouveau_sommet = new Sommet(strs[0]);								// Créer un nouveau sommet
+				    	liste_sommets.add(nouveau_sommet);											// L'ajouter à la liste
+				    	nouveau_sommet.nouvel_arc(strs[1], Integer.parseInt(strs[2]));				// Lui ajouter un arc
 			    	}
 			    	else
 			    	{
-			    		liste_sommets.get(sommet_existant(strs[0])).nouvelle_transition(strs[1], Integer.parseInt(strs[2]));;
+			    		liste_sommets.get(sommet_existant(strs[0])).nouvel_arc(strs[1], Integer.parseInt(strs[2]));;		// Récupérer le sommet existant pour lui ajouter son nouvel arc
 			    	}
 			    }
 			}
@@ -57,13 +59,13 @@ public class Graph
 	
 	/// GETTER AND SETTER ///
 
-	public int get_nb_sommets() 
+	public int get_nb_sommets() 														// Récupérer le nombre de sommet du graph
 	{ return nb_sommets; }
 
 	public void set_nb_sommets(int nb_sommets) 
 	{ this.nb_sommets = nb_sommets; }
 	
-	public int get_nb_transition()
+	public int get_nb_arc()																// Récupérer le nombre d'arc du graph
 	{
 		for(int i = 0 ; i < this.get_nb_sommets() ; i++)
 		{ this.nb_arc += this.liste_sommets.get(i).get_nb_arc(); }
@@ -77,7 +79,7 @@ public class Graph
 	
 	/// METHODES ///
 	
-	private void classer_liste_sommets()
+	private void classer_liste_sommets()						// Classer les sommet par ordre croissant
 	{
 		ArrayList<Sommet> tempo_liste_sommets = new ArrayList<Sommet>();
 		
@@ -93,28 +95,28 @@ public class Graph
 		this.liste_sommets = tempo_liste_sommets;
 	}
 	
- 	public int sommet_existant(String new_sommet)
+ 	public int sommet_existant(String new_sommet)				// Vérifier si un sommet existe déjà lors de la lecture
 	{
 		for(int i = 0 ; i < liste_sommets.size() ; i++)
 		{
 			if(liste_sommets.get(i).getNom().equals(new_sommet))
 			{
-				return i;
+				return i;										// S'il existe déjà, retourner sa position dans la liste
 			}
 		}
-		return -1;
+		return -1;												// Sinon, retourner -1 pour signaler qu'il n'existe pas
 	}
 	
 	public void afficher_graph()
 	{
 		System.out.println("\nCe graph possède " + this.get_nb_sommets() + " sommets !");
-		System.out.println("Ce graph possède " + this.get_nb_transition() + " arcs !\n");
+		System.out.println("Ce graph possède " + this.get_nb_arc() + " arcs !\n");
 		
-		for(int i = 0 ; i < this.get_nb_sommets() ; i++)
+		for(int i = 0 ; i < this.get_nb_sommets() ; i++)					// Parcourir la list des sommets du graph
 		{
-			if(liste_sommets.get(i).get_nb_arc() == 0)
+			if(liste_sommets.get(i).get_nb_arc() == 0)						// Si aucun arc ne part de ce sommet
 			{
-				System.out.println(liste_sommets.get(i).getNom());
+				System.out.println(liste_sommets.get(i).getNom());			
 			}
 			else
 			{
@@ -213,6 +215,89 @@ public class Graph
 			}
 			System.out.print("\n");
 		}
+	}
+	
+	public boolean detection_circuit()
+	{
+		boolean entree_restante = true;
+		ArrayList<Sommet> liste_sommets_circuit = new ArrayList<Sommet>();
+		liste_sommets_circuit.addAll(this.liste_sommets);
+		
+		ArrayList<Sommet> liste_sommets_hors_circuit = new ArrayList<Sommet>();		// On supprimera les sommets pouvant faire partie d'un circuit
+		
+		while(entree_restante == true)
+		{
+			liste_sommets_hors_circuit.addAll(liste_sommets_circuit);
+			
+			System.out.println("Points d'entrée :");
+			for(int i = 0; i < liste_sommets_circuit.size() ; i++)						// On vérifie pour tous les sommets restant
+			{
+				if(liste_sommets_circuit.get(i).get_nb_arc() != 0)						// Si des arcs partent depuis le sommet sommet
+				{
+					for(int j = 0 ; j < liste_sommets_circuit.get(i).get_nb_arc() ; j++)			// On vérifie pour chacun des arcs
+					{
+						int position = 0;
+						for(int k = 0 ; k < liste_sommets_hors_circuit.size() ; k++)
+						{
+							if(liste_sommets_circuit.get(i).getArc(j).getSuccesseur().equals(liste_sommets_hors_circuit.get(position).getNom()))	// Si le successeur est un sommet encore présent	
+							{																														// Alors il peut faire partie d'un circuit
+								liste_sommets_hors_circuit.remove(position);																		// On le retire des sommets potentiellement hors circuit
+								position -= 1;																										
+							}
+							position += 1;
+						}
+					}	
+				}
+			}
+			
+			if(liste_sommets_hors_circuit.size() != 0)																		// Si des sommets sont des points d'entrée
+			{
+				for(int nb_sommet = 0 ; nb_sommet < liste_sommets_hors_circuit.size() ; nb_sommet++)
+				{
+					System.out.print(liste_sommets_hors_circuit.get(nb_sommet).getNom() + " ");								// Afficher les noms des sommets
+					
+					for(int elimination = 0 ; elimination < liste_sommets_circuit.size() ; elimination++)					// Chercher la position du sommet à retirer de la liste
+					{
+						if(liste_sommets_circuit.get(elimination).getNom().equals(liste_sommets_hors_circuit.get(nb_sommet).getNom()))		// Si même nom
+						{ 
+							liste_sommets_circuit.remove(elimination); 														// Eliminer le sommet correspondant
+						}
+					}
+				}
+				
+				System.out.println("\nSuppression des points d'entrée !");
+				System.out.println("Points restant : ");
+				
+				if(liste_sommets_circuit.size() != 0)														// S'il reste des sommets, affficher les sommets restants
+				{
+					for(int restant = 0 ; restant < liste_sommets_circuit.size() ; restant++)
+					{
+						System.out.print(liste_sommets_circuit.get(restant).getNom() + " ");
+					}
+				}
+				
+				liste_sommets_hors_circuit.clear();				// Reset la liste des circuits à retirer
+				System.out.print("\n");
+			}
+			else																							// S'il n'y a plus de sommets à retirer
+			{
+				System.out.println("Aucun !");																// Plus de points restants ni de points à retirer
+				
+				if(liste_sommets_circuit.size() == 0)														// Vérifier s'il reste des sommets dits "hors-circuits" ou non
+				{
+					System.out.println("Il n'y a pas de circuit dans ce graph !");
+					entree_restante = false;
+					return true;
+				}
+				else
+				{
+					System.out.println("Attention ! Il y a un circuit dans ce graph !");
+					entree_restante = false;
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	/// METHODES ///
