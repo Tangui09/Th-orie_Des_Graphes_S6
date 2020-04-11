@@ -438,7 +438,7 @@ public class Graphe
 				}
 			}
 		}
-		System.out.println("On a des valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet !");
+		System.out.println("On a des valeurs identiques pour tous les arcs incidents vers l’extérieur d'un sommet !");
 		
 		
 		
@@ -455,7 +455,7 @@ public class Graphe
 				return;	
 			}
 		}
-		System.out.println("Valeurs nulles pour tous les arcs incidents vers l’extérieur au point d’entrée !");
+		System.out.println("Valeurs nulles pour tous les arcs incidents vers l’extérieur du point d’entrée !");
 		
 		
 		
@@ -478,7 +478,7 @@ public class Graphe
 				}
 			}
 		}
-		System.out.println("Valeurs positives nulles pour tous les arcs !");
+		System.out.println("Valeurs positives ou nulles pour tous les arcs !");
 		
 		System.out.println("\nToutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !\n\n");
 	}
