@@ -8,21 +8,22 @@ public class Main {
 
 	public static void main(String[] args) 
 	{
-		System.out.println("Projet de théorie des graphes S6\n");
+		System.out.println("Projet de théorie des graphees S6\n");
 		
-		System.out.print("Choississez le nom d'un graph : ");
+		System.out.print("Choississez le nom d'un graphe : ");
 		sc = new Scanner(System.in);
-		String nom_graph = sc.nextLine();
-		Graph graph = new Graph(nom_graph);
+		String nom_graphe = sc.nextLine();
+		Graphe graphe = new Graphe(nom_graphe);
 		
 		int x = -1;
 		while(x == -1)
 		{
 			System.out.println("\nQue voulez faire ?");
 			System.out.println("0°) Quitter l'application");
-			System.out.println("1°) Afficher le graph");
+			System.out.println("1°) Afficher le graphe");
 			System.out.println("2°) Afficher la matrice d'adjacence et la matrice de valeur");
 			System.out.println("3°) Détéction de circuit");
+			System.out.println("4°) Calculer le rang");
 			
 			System.out.print("\nNuméro de l'action à faire : ");
 			sc1 = new Scanner(System.in);
@@ -34,21 +35,26 @@ public class Main {
 			    break;
 			    
 			  case 1:
-				graph.afficher_graph();
+				graphe.afficher_graphe();
 				x = -1;
 			    break;
 			    
 			  case 2:
-			    graph.matrice_adjacence();
-			    graph.matrice_valeur();
+			    graphe.matrice_adjacence();
+			    graphe.matrice_valeur();
 			    x = -1;
 			    break;
 			    
 			  case 3:
-					graph.detection_circuit();
+					graphe.detection_circuit();
 					x = -1;
 				    break;
-			    
+			 
+			  case 4:
+					graphe.calcul_rang();;
+					x = -1;
+				    break;    
+				    
 			  default:
 				  System.out.println("Veuillez choisir un numéro cohérent !");
 				  x = -1;

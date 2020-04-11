@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Graph 
+public class Graphe 
 {
 	private int nb_sommets;
 	private int nb_arc;
@@ -15,14 +15,14 @@ public class Graph
 	
 	/// CONSTRUCTEURS ///
 	
-	public Graph(String nom_fichier)
+	public Graphe(String nom_fichier)
 	{
 		try
 		{
 			sc = new Scanner(new File(nom_fichier));							// Trouver le fichier
 			
-			this.set_nb_sommets(Integer.parseInt(sc.nextLine()));				// La première ligne nous donne le nombre de sommet dans le graph
-			this.set_nb_arc(Integer.parseInt(sc.nextLine()));					// La deuxième ligne correspond au nombre d'arcs dans le graph
+			this.set_nb_sommets(Integer.parseInt(sc.nextLine()));				// La première ligne nous donne le nombre de sommet dans le graphe
+			this.set_nb_arc(Integer.parseInt(sc.nextLine()));					// La deuxième ligne correspond au nombre d'arcs dans le graphe
 			
 			while(sc.hasNext())
 			{
@@ -63,13 +63,13 @@ public class Graph
 	
 	/// GETTER AND SETTER ///
 
-	public int get_nb_sommets() 														// Récupérer le nombre de sommet du graph
+	public int get_nb_sommets() 														// Récupérer le nombre de sommet du graphe
 	{ return nb_sommets; }
 
 	public void set_nb_sommets(int nb_sommets) 
 	{ this.nb_sommets = nb_sommets; }
 	
-	public int get_nb_arc()																// Récupérer le nombre d'arc du graph
+	public int get_nb_arc()																// Récupérer le nombre d'arc du graphe
 	{
 		for(int i = 0 ; i < this.get_nb_sommets() ; i++)
 		{ this.nb_arc += this.liste_sommets.get(i).get_nb_arc(); }
@@ -113,12 +113,12 @@ public class Graph
 		return -1;												// Sinon, retourner -1 pour signaler qu'il n'existe pas
 	}
 	
-	public void afficher_graph()
+	public void afficher_graphe()
 	{
-		System.out.println("\nCe graph possède " + this.get_nb_sommets() + " sommets !");
-		System.out.println("Ce graph possède " + this.get_nb_arc() + " arcs !\n");
+		System.out.println("\nCe graphe possède " + this.get_nb_sommets() + " sommets !");
+		System.out.println("Ce graphe possède " + this.get_nb_arc() + " arcs !\n");
 		
-		for(int i = 0 ; i < this.get_nb_sommets() ; i++)					// Parcourir la list des sommets du graph
+		for(int i = 0 ; i < this.get_nb_sommets() ; i++)					// Parcourir la list des sommets du graphe
 		{
 			if(liste_sommets.get(i).get_nb_arc() == 0)						// Si aucun arc ne part de ce sommet
 			{
@@ -231,6 +231,8 @@ public class Graph
 		
 		ArrayList<Sommet> liste_sommets_hors_circuit = new ArrayList<Sommet>();		// On supprimera les sommets pouvant faire partie d'un circuit
 		
+		int rang = 0;
+		
 		while(entree_restante == true)
 		{
 			liste_sommets_hors_circuit.addAll(liste_sommets_circuit);
@@ -269,6 +271,14 @@ public class Graph
 							liste_sommets_circuit.remove(elimination); 														// Eliminer le sommet correspondant
 						}
 					}
+					
+					for(int change_rang = 0 ; change_rang < this.liste_sommets.size() ; change_rang++)
+					{
+						if(this.liste_sommets.get(change_rang).getNom().equals(liste_sommets_hors_circuit.get(nb_sommet).getNom()))
+						{
+							this.liste_sommets.get(change_rang).setRang(rang);
+						}
+					}
 				}
 				
 				System.out.println("\nSuppression des points d'entrée !");
@@ -295,19 +305,48 @@ public class Graph
 				
 				if(liste_sommets_circuit.size() == 0)														// Vérifier s'il reste des sommets dits "hors-circuits" ou non
 				{
-					System.out.println("Il n'y a pas de circuit dans ce graph !");
+					System.out.println("Il n'y a pas de circuit dans ce graphe !");
 					entree_restante = false;
 					return false;
 				}
 				else
 				{
-					System.out.println("Attention ! Il y a un circuit dans ce graph !");
+					System.out.println("Attention ! Il y a un circuit dans ce graphe !");
 					entree_restante = false;
 					return true;
 				}
 			}
+			rang += 1;
 		}
 		return true;
+	}
+	
+	public void calcul_rang()
+	{
+		boolean circuit = this.detection_circuit();
+		
+		if(circuit == true)
+		{
+			System.out.println("Calcul du rang impossible car il y a un circuit dans le graphe !");
+		}
+		else
+		{
+			System.out.print("Sommet");
+			for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+			{
+				System.out.print("\t" + this.liste_sommets.get(i).getNom());
+			}
+			
+			System.out.print("\n");
+			
+			System.out.print("Rang");
+			for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+			{
+				System.out.print("\t" + this.liste_sommets.get(i).getRang());
+			}
+		}
+		
+		System.out.print("\n\n\n");
 	}
 	
 	/// METHODES ///
