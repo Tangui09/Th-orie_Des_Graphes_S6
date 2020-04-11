@@ -20,6 +20,10 @@ public class Graph
 		try
 		{
 			sc = new Scanner(new File(nom_fichier));
+			
+			this.set_nb_sommets(Integer.parseInt(sc.nextLine()));				// La première ligne nous donne le nombre de sommet dans le graph
+			this.set_nb_arc(Integer.parseInt(sc.nextLine()));					// La deuxième ligne correspond au nombre d'arcs dans le graph
+			
 			while(sc.hasNext())
 			{
 				String ligne = sc.nextLine();    													// Récupérer la ligne
@@ -50,7 +54,6 @@ public class Graph
 		}catch(Exception e) {}
 		
 		this.classer_liste_sommets();
-		this.set_nb_sommets(liste_sommets.size());
 	}
 	
 	/// CONSTRUCTEURS ///
@@ -73,6 +76,8 @@ public class Graph
 		return nb_arc;
 	}
 	
+	public void set_nb_arc(int nb_arc) 
+	{ this.nb_arc = nb_arc; }
 	/// GETTER AND SETTER ///
 	
 	
