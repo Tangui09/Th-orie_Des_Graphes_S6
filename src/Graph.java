@@ -19,7 +19,7 @@ public class Graph
 	{
 		try
 		{
-			sc = new Scanner(new File(nom_fichier));
+			sc = new Scanner(new File(nom_fichier));							// Trouver le fichier
 			
 			this.set_nb_sommets(Integer.parseInt(sc.nextLine()));				// La première ligne nous donne le nombre de sommet dans le graph
 			this.set_nb_arc(Integer.parseInt(sc.nextLine()));					// La deuxième ligne correspond au nombre d'arcs dans le graph
