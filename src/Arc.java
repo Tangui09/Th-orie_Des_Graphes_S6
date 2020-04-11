@@ -1,10 +1,8 @@
 
 public class Arc 
 {
-
 	private String successeur;
 	private int valeur;
-	
 	
 	
 	/// CONSTRUCTEUR ///
