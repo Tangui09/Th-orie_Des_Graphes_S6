@@ -4,6 +4,7 @@ public class Sommet
 {
 	private String nom;
 	private ArrayList<Arc> liste_arcs = new ArrayList<Arc>();
+	private int rang;
 	
 	
 	
@@ -43,6 +44,12 @@ public class Sommet
 	
 	public Arc getArc(int position)
 	{ return liste_arcs.get(position); }
+
+	public int getRang() 
+	{ return rang; }
+
+	public void setRang(int rang) 
+	{ this.rang = rang; }
 	
 	/// GETTER ET SETTER ///
 }
