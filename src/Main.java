@@ -24,6 +24,7 @@ public class Main {
 			System.out.println("2°) Afficher la matrice d'adjacence et la matrice de valeur");
 			System.out.println("3°) Détéction de circuit");
 			System.out.println("4°) Calculer le rang");
+			System.out.println("5°) Vérifier si c'est un graphe d'ordonnancement");
 			
 			System.out.print("\nNuméro de l'action à faire : ");
 			sc1 = new Scanner(System.in);
@@ -53,8 +54,13 @@ public class Main {
 			  case 4:
 					graphe.calcul_rang();;
 					x = -1;
-				    break;    
+				    break;  
 				    
+			  case 5:
+					graphe.verifier_ordonnancement();;
+					x = -1;
+				    break;    
+				
 			  default:
 				  System.out.println("Veuillez choisir un numéro cohérent !");
 				  x = -1;

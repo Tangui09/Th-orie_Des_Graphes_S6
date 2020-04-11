@@ -306,13 +306,13 @@ public class Graphe
 				
 				if(liste_sommets_circuit.size() == 0)														// Vérifier s'il reste des sommets dits "hors-circuits" ou non
 				{
-					System.out.println("Il n'y a pas de circuit dans ce graphe !");
+					System.out.println("\nIl n'y a pas de circuit dans ce graphe !");
 					entree_restante = false;
 					return false;
 				}
 				else
 				{
-					System.out.println("Attention ! Il y a un circuit dans ce graphe !");
+					System.out.println("\nAttention ! Il y a un circuit dans ce graphe !");
 					entree_restante = false;
 					return true;
 				}
@@ -352,7 +352,141 @@ public class Graphe
 	
 	public void verifier_ordonnancement()
 	{
+		boolean circuit = this.detection_circuit();
 		
+		if(circuit == true)
+		{
+			System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
+			return;
+		}
+		
+		
+		
+		
+		
+		int rang_0 = 0;
+		int position_rang_0 = 0;
+		
+		int rang_max = 0;
+		int position_rang_max = 0;
+		int rang_max_valeur = 0;
+		
+		for(int i = 0; i < this.liste_sommets.size() ; i++)										// Vérifions les rangs de tous les sommets du graphe
+		{
+			if(this.liste_sommets.get(i).getRang() == 0)										// S'il est de rang 0
+			{
+				rang_0 += 1;																	// Alors on a un sommet de plus de rang 0
+				position_rang_0 = i;															// On enregistre la position pour éventuellement l'afficher plus tard
+			}
+			else
+			{
+				if(this.liste_sommets.get(i).getRang() == rang_max_valeur)						// Si le sommet a le même rang que le rang max actuellement connu
+				{
+					rang_max += 1;																// Un sommet de plus avec le rang max
+					position_rang_max = i;														// On enregistre la position pour éventuellement l'afficher plus tard
+				}
+				else if(this.liste_sommets.get(i).getRang() > rang_max_valeur)					// Si le rang du sommet étudié est plus grand que le rang max connu
+				{
+					rang_max = 1;																// Alors on a un sommet de rang max pour l'instant
+					position_rang_max = i;														// On enregistre la position
+					rang_max_valeur = this.liste_sommets.get(i).getRang();						// On garde en mémoire la valeur du rang max pour comparer par la suite
+				}
+			}
+		}
+		
+		if(rang_0 == 1)																										// Si on a qu'un élément de rang 0
+		{
+			System.out.println("Un seul point d'entrée : " + this.liste_sommets.get(position_rang_0).getNom());
+		}
+		else
+		{
+			System.out.println("Il n'y a pas qu'un seul point d'entrée !");
+			System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
+			return;																											// On arrête de vérifier parce que ce n'est pas un graphe d'odonnancement
+		}
+		
+		if(rang_max == 1)																									// Si on a un seul élément de rang max
+		{
+			System.out.println("Un seul point de sortie : " + this.liste_sommets.get(position_rang_max).getNom());
+		}
+		else
+		{
+			System.out.println("Il n'y a pas qu'un seul point de sortie !");
+			System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
+			return;																											// On arrête de vérifier parce que ce n'est pas un graphe d'odonnancement
+		}
+		
+		
+		
+		
+		
+		
+		for(int j = 0 ; j < this.liste_sommets.size() ; j++)							// Vérifions pour tous les arcs si c'est les mêmes valeur pour les arcs partant du sommet
+		{
+			if(this.liste_sommets.get(j).get_nb_arc() != 0)								// Si ce sommet a des successeurs
+			{
+				int valeur_arc = this.liste_sommets.get(j).getArc(0).getValeur();		// Enregistrons la valeur du premier arc
+				int condition = 0;														// Condition pour vérifier si aucun autre arc n'a de valeur différente
+				
+				for(int nb_arc = 0 ; nb_arc < liste_sommets.get(j).get_nb_arc() ; nb_arc++)			// Vérifions pour tous les arcs de ce sommet
+				{
+					if(liste_sommets.get(j).getArc(nb_arc).getValeur() != valeur_arc)		// Si la valeur de l'arc étudié est différente de celle enregistrée
+					{
+						condition += 1;														// La condition évolue
+					}
+				}
+				
+				if(condition != 0)							// Si on a noté des valeurs différentes pour les arcs provenant d'un même sommet
+				{
+					System.out.println("Pas de valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet !");
+					System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
+					return;		
+				}
+			}
+		}
+		System.out.println("On a des valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet !");
+		
+		
+		
+		
+		
+		
+		
+		for(int verif_rang_0 = 0 ; verif_rang_0 < this.liste_sommets.get(verif_rang_0).get_nb_arc() ; verif_rang_0++)
+		{
+			if(this.liste_sommets.get(verif_rang_0).getArc(verif_rang_0).getValeur() != 0)
+			{
+				System.out.println("Pas de valeurs nulles pour tous les arcs incidents vers l’extérieur au point d’entrée !");
+				System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
+				return;	
+			}
+		}
+		System.out.println("Valeurs nulles pour tous les arcs incidents vers l’extérieur au point d’entrée !");
+		
+		
+		
+		
+		
+		
+		
+		for(int verif_valeur_negative = 0 ; verif_valeur_negative < this.liste_sommets.size() ; verif_valeur_negative++)
+		{
+			if(this.liste_sommets.get(verif_valeur_negative).get_nb_arc() != 0)
+			{
+				for(int k = 0 ; k < this.liste_sommets.get(verif_valeur_negative).get_nb_arc() ; k++)
+				{
+					if(this.liste_sommets.get(verif_valeur_negative).getArc(k).getValeur() < 0)
+					{
+						System.out.println("Il y a au moins un arc à valeur négative !");
+						System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
+						return;	
+					}
+				}
+			}
+		}
+		System.out.println("Valeurs positives nulles pour tous les arcs !");
+		
+		System.out.println("\nToutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !\n\n");
 	}
 	
 	/// METHODES ///
