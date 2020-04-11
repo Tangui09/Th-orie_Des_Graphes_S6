@@ -54,7 +54,7 @@ public class Graph
 			}
 		}catch(Exception e) {}
 		
-		this.classer_liste_sommets();
+		this.classer_liste_sommets();															// Classer la liste
 	}
 	
 	/// CONSTRUCTEURS ///
