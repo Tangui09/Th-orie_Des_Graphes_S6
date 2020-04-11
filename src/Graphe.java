@@ -426,21 +426,15 @@ public class Graphe
 			if(this.liste_sommets.get(j).get_nb_arc() != 0)								// Si ce sommet a des successeurs
 			{
 				int valeur_arc = this.liste_sommets.get(j).getArc(0).getValeur();		// Enregistrons la valeur du premier arc
-				int condition = 0;														// Condition pour vérifier si aucun autre arc n'a de valeur différente
 				
 				for(int nb_arc = 0 ; nb_arc < liste_sommets.get(j).get_nb_arc() ; nb_arc++)			// Vérifions pour tous les arcs de ce sommet
 				{
 					if(liste_sommets.get(j).getArc(nb_arc).getValeur() != valeur_arc)		// Si la valeur de l'arc étudié est différente de celle enregistrée
 					{
-						condition += 1;														// La condition évolue
+						System.out.println("Pas de valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet !");
+						System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
+						return;																				// On arrête de vérifier
 					}
-				}
-				
-				if(condition != 0)							// Si on a noté des valeurs différentes pour les arcs provenant d'un même sommet
-				{
-					System.out.println("Pas de valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet !");
-					System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
-					return;		
 				}
 			}
 		}
@@ -452,7 +446,7 @@ public class Graphe
 		
 		
 		
-		for(int verif_rang_0 = 0 ; verif_rang_0 < this.liste_sommets.get(verif_rang_0).get_nb_arc() ; verif_rang_0++)
+		for(int verif_rang_0 = 0 ; verif_rang_0 < this.liste_sommets.get(verif_rang_0).get_nb_arc() ; verif_rang_0++)			// Véridions si tous les arcs partant du point d'entrée sont à valeur nulle
 		{
 			if(this.liste_sommets.get(verif_rang_0).getArc(verif_rang_0).getValeur() != 0)
 			{
@@ -469,7 +463,7 @@ public class Graphe
 		
 		
 		
-		for(int verif_valeur_negative = 0 ; verif_valeur_negative < this.liste_sommets.size() ; verif_valeur_negative++)
+		for(int verif_valeur_negative = 0 ; verif_valeur_negative < this.liste_sommets.size() ; verif_valeur_negative++)		// Véridions si aucun arcs n'est à valeur négative
 		{
 			if(this.liste_sommets.get(verif_valeur_negative).get_nb_arc() != 0)
 			{
