@@ -274,10 +274,14 @@ public class Graph
 					{
 						System.out.print(liste_sommets_circuit.get(restant).getNom() + " ");
 					}
+					System.out.print("\n");
+				}
+				else
+				{
+					System.out.println("Aucun !");														// Il n'y a plus de points restants
 				}
 				
 				liste_sommets_hors_circuit.clear();				// Reset la liste des circuits à retirer
-				System.out.print("\n");
 			}
 			else																							// S'il n'y a plus de sommets à retirer
 			{
@@ -287,13 +291,13 @@ public class Graph
 				{
 					System.out.println("Il n'y a pas de circuit dans ce graph !");
 					entree_restante = false;
-					return true;
+					return false;
 				}
 				else
 				{
 					System.out.println("Attention ! Il y a un circuit dans ce graph !");
 					entree_restante = false;
-					return false;
+					return true;
 				}
 			}
 		}
