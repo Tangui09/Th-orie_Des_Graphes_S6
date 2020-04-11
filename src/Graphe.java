@@ -79,6 +79,7 @@ public class Graphe
 	
 	public void set_nb_arc(int nb_arc) 
 	{ this.nb_arc = nb_arc; }
+	
 	/// GETTER AND SETTER ///
 	
 	
@@ -347,6 +348,11 @@ public class Graphe
 		}
 		
 		System.out.print("\n\n\n");
+	}
+	
+	public void verifier_ordonnancement()
+	{
+		
 	}
 	
 	/// METHODES ///
