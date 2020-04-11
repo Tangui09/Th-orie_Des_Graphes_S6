@@ -29,26 +29,27 @@ public class Graph
 				String ligne = sc.nextLine();    													// Récupérer la ligne
 			    String[] strs = ligne.trim().split("\\s+");											// Créer un tableau avec chaque élément de le ligne séparé par un espace
 			    
-			    if(strs.length == 1)																// Si le sommet est sans arc
+			    if(sommet_existant(strs[0]) == -1)												// Si le sommet n'existe pas encore
 			    {
-			    	if(sommet_existant(strs[0]) == -1)												// Si le sommet n'existe pas encore
-			    	{
-			    		Sommet nouveau_sommet = new Sommet(strs[0]);								// Créer un nouveau sommet
-			    		liste_sommets.add(nouveau_sommet);											// L'ajouter à la liste
-			    	}
+			    	Sommet nouveau_sommet = new Sommet(strs[0]);								// Créer un nouveau sommet
+				    liste_sommets.add(nouveau_sommet);											// L'ajouter à la liste
+				    nouveau_sommet.nouvel_arc(strs[1], Integer.parseInt(strs[2]));				// Lui ajouter un arc
+				    	
+				    if(sommet_existant(strs[1]) == -1)											// Si le successeur n'existe pas encore
+				    {
+				    	Sommet nouveau_sommet1 = new Sommet(strs[1]);							// Créer le sommet du successeur
+				    	liste_sommets.add(nouveau_sommet1);										// L'ajouter à la liste
+				    }
 			    }
 			    else
 			    {
-			    	if(sommet_existant(strs[0]) == -1)												// Si le sommet n'existe pas encore
-			    	{
-			    		Sommet nouveau_sommet = new Sommet(strs[0]);								// Créer un nouveau sommet
-				    	liste_sommets.add(nouveau_sommet);											// L'ajouter à la liste
-				    	nouveau_sommet.nouvel_arc(strs[1], Integer.parseInt(strs[2]));				// Lui ajouter un arc
-			    	}
-			    	else
-			    	{
-			    		liste_sommets.get(sommet_existant(strs[0])).nouvel_arc(strs[1], Integer.parseInt(strs[2]));;		// Récupérer le sommet existant pour lui ajouter son nouvel arc
-			    	}
+			    	liste_sommets.get(sommet_existant(strs[0])).nouvel_arc(strs[1], Integer.parseInt(strs[2]));;		// Récupérer le sommet existant pour lui ajouter son nouvel arc
+			    		
+			    	if(sommet_existant(strs[1]) == -1)											// Si le successeur n'existe pas encore
+				    {
+				    	Sommet nouveau_sommet1 = new Sommet(strs[1]);							// Créer le sommet du successeur
+				    	liste_sommets.add(nouveau_sommet1);										// L'ajouter à la liste
+				    }
 			    }
 			}
 		}catch(Exception e) {}
