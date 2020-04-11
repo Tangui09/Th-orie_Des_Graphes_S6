@@ -325,7 +325,7 @@ public class Graphe
 	{
 		boolean circuit = this.detection_circuit();
 		
-		if(circuit == true)
+		if(circuit == true)																							// S'il y a un circuit, pas de calcul de rang possible
 		{
 			System.out.println("Calcul du rang impossible car il y a un circuit dans le graphe !");
 		}
@@ -334,13 +334,13 @@ public class Graphe
 			System.out.print("Sommet");
 			for(int i = 0 ; i < this.liste_sommets.size() ; i++)
 			{
-				System.out.print("\t" + this.liste_sommets.get(i).getNom());
+				System.out.print("\t" + this.liste_sommets.get(i).getNom());							// Afficher les sommets dans l'ordre
 			}
 			
 			System.out.print("\n");
 			
 			System.out.print("Rang");
-			for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+			for(int i = 0 ; i < this.liste_sommets.size() ; i++)										// Afficher les rangs des sommets correspondant
 			{
 				System.out.print("\t" + this.liste_sommets.get(i).getRang());
 			}
