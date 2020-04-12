@@ -8,6 +8,9 @@ public class Graphe
 	private int nb_arc;
 	private ArrayList<Sommet> liste_sommets = new ArrayList<Sommet>();
 	
+	private boolean verif_circuit = false;
+	private boolean circuit;
+	
 	private Scanner sc;
 
 	
@@ -79,6 +82,18 @@ public class Graphe
 	
 	public void set_nb_arc(int nb_arc) 
 	{ this.nb_arc = nb_arc; }
+	
+	public boolean isCircuit() 
+	{ return circuit; }
+
+	public void setCircuit(boolean circuit) 
+	{ this.circuit = circuit; }
+	
+	public boolean isVerif_circuit() 
+	{ return verif_circuit; }
+
+	public void setVerif_circuit(boolean verif_circuit) 
+	{ this.verif_circuit = verif_circuit; }
 	
 	/// GETTER AND SETTER ///
 	
@@ -307,13 +322,15 @@ public class Graphe
 				if(liste_sommets_circuit.size() == 0)														// Vérifier s'il reste des sommets dits "hors-circuits" ou non
 				{
 					System.out.println("\nIl n'y a pas de circuit dans ce graphe !");
-					entree_restante = false;
+					this.setCircuit(false);
+					this.setVerif_circuit(true);
 					return false;
 				}
 				else
 				{
 					System.out.println("\nAttention ! Il y a un circuit dans ce graphe !");
-					entree_restante = false;
+					this.setCircuit(true);
+					this.setVerif_circuit(true);
 					return true;
 				}
 			}
@@ -352,14 +369,25 @@ public class Graphe
 	
 	public void verifier_ordonnancement()
 	{
-		boolean circuit = this.detection_circuit();
-		
-		if(circuit == true)
+		if(isVerif_circuit() == false)
 		{
-			System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
-			return;
+			this.detection_circuit();
+			if(this.circuit == true)
+			{
+				System.out.println("Il y a un circuit ! Ce n'est donc pas un graphe d'ordonnancement !");
+				return;
+			}
+		}
+		else
+		{
+			if(this.circuit == true)
+			{
+				System.out.println("Il y a un circuit ! Ce n'est donc pas un graphe d'ordonnancement !");
+				return;
+			}
 		}
 		
+		System.out.println("La condition de l'absence de circuit est bien vérifiée !");
 		
 		
 		
@@ -482,6 +510,6 @@ public class Graphe
 		
 		System.out.println("\nToutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !\n\n");
 	}
-	
+
 	/// METHODES ///
 }
