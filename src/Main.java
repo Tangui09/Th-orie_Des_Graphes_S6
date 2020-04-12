@@ -10,16 +10,13 @@ public class Main {
 	{
 		System.out.println("Projet de théorie des graphees S6\n");
 		
-		System.out.print("Choississez le nom d'un graphe : ");
-		sc = new Scanner(System.in);
-		String nom_graphe = sc.nextLine();
-		Graphe graphe = new Graphe(nom_graphe);
+		Graphe graphe = choisir_graphe();
 		
 		int x = -1;
 		while(x == -1)
 		{
 			System.out.println("\nQue voulez faire ?");
-			System.out.println("0°) Quitter l'application");
+			System.out.println("0°) Choisir un autre graphe");
 			System.out.println("1°) Afficher le graphe");
 			System.out.println("2°) Afficher la matrice d'adjacence et la matrice de valeur");
 			System.out.println("3°) Détéction de circuit");
@@ -32,7 +29,8 @@ public class Main {
 			
 			switch(x) {
 			case 0:
-				System.exit(0);
+				graphe = choisir_graphe();
+				x = -1;
 			    break;
 			    
 			  case 1:
@@ -66,6 +64,15 @@ public class Main {
 				  x = -1;
 			}
 		}
+	}
+	
+	public static Graphe choisir_graphe()
+	{
+		System.out.print("\nChoississez le nom d'un graphe : ");
+		sc = new Scanner(System.in);
+		String nom_graphe = sc.nextLine();
+		Graphe graphe = new Graphe(nom_graphe);
+		return graphe;
 	}
 
 }
