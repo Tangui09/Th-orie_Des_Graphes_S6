@@ -447,6 +447,7 @@ public class Graphe
 		if(rang_0 == 1)																										// Si on a qu'un élément de rang 0
 		{
 			System.out.println("Un seul point d'entrée : " + this.liste_sommets.get(position_rang_0).getNom());
+			this.liste_sommets.get(position_rang_0).setPoint_entree(true);
 		}
 		else
 		{
@@ -458,6 +459,7 @@ public class Graphe
 		if(rang_max == 1)																									// Si on a un seul élément de rang max
 		{
 			System.out.println("Un seul point de sortie : " + this.liste_sommets.get(position_rang_max).getNom());
+			this.liste_sommets.get(position_rang_max).setPoint_sortie(true);
 		}
 		else
 		{

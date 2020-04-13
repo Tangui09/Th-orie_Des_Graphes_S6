@@ -6,6 +6,9 @@ public class Sommet
 	private ArrayList<Arc> liste_arcs = new ArrayList<Arc>();
 	private int rang;
 	
+	private boolean point_entree = false;
+	private boolean point_sortie = false;
+	
 	
 	
 	/// CONSTRUCTEURS ///
@@ -50,6 +53,18 @@ public class Sommet
 
 	public void setRang(int rang) 
 	{ this.rang = rang; }
+	
+	public boolean isPoint_entree() 
+	{ return point_entree; }
+
+	public void setPoint_entree(boolean point_entree) 
+	{ this.point_entree = point_entree; }
+
+	public boolean isPoint_sortie() 
+	{ return point_sortie; }
+
+	public void setPoint_sortie(boolean point_sortie) 
+	{ this.point_sortie = point_sortie; }
 	
 	/// GETTER ET SETTER ///
 }
