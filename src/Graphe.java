@@ -538,7 +538,27 @@ public class Graphe
 
 	public void dates_au_plus_tot()
 	{
+		int position_rang_0 = -1;
+		int position_rang_max = -1;
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)				// Récupérer la position du point d'entrée
+		{
+			if(this.liste_sommets.get(i).isPoint_entree() == true)
+			{
+				position_rang_0 = i;
+			}
+			else if(this.liste_sommets.get(i).isPoint_sortie() == true)
+			{
+				position_rang_max = i;
+			}
+		}
 		
+		this.liste_sommets.get(position_rang_0).setDate_au_plus_tot_sommet(0);							// On set la date au plus tôt du point d'entrée à 0
+		this.setDate_au_plus_tot(0);																	// On set la date au plus tôt globale à 0 pour commencer le calcul
+		
+		while(this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet() == -1)				// Tant que l'on est pas arrivé au point de sortie
+		{
+			
+		}
 	}
 	
 	/// METHODES ///

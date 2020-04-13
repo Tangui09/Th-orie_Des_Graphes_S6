@@ -9,6 +9,8 @@ public class Sommet
 	private boolean point_entree = false;
 	private boolean point_sortie = false;
 	
+	private int date_au_plus_tot_sommet = -1;
+	private int date_au_plus_tard_sommet = -1;
 	
 	
 	/// CONSTRUCTEURS ///
@@ -65,6 +67,18 @@ public class Sommet
 
 	public void setPoint_sortie(boolean point_sortie) 
 	{ this.point_sortie = point_sortie; }
+
+	public int getDate_au_plus_tot_sommet() 
+	{ return date_au_plus_tot_sommet; }
+
+	public void setDate_au_plus_tot_sommet(int date_au_plus_tot_sommet) 
+	{ this.date_au_plus_tot_sommet = date_au_plus_tot_sommet; }
+
+	public int getDate_au_plus_tard_sommet() 
+	{ return date_au_plus_tard_sommet; }
+
+	public void setDate_au_plus_tard_sommet(int date_au_plus_tard_sommet) 
+	{ this.date_au_plus_tard_sommet = date_au_plus_tard_sommet; }
 	
 	/// GETTER ET SETTER ///
 }
