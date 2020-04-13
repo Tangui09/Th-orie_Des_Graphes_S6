@@ -555,9 +555,12 @@ public class Graphe
 		this.liste_sommets.get(position_rang_0).setDate_au_plus_tot_sommet(0);							// On set la date au plus tôt du point d'entrée à 0
 		this.setDate_au_plus_tot(0);																	// On set la date au plus tôt globale à 0 pour commencer le calcul
 		
-		while(this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet() == -1)				// Tant que l'on est pas arrivé au point de sortie
+		for(int rang = 0 ; rang < this.liste_sommets.get(position_rang_max).getRang() ; rang++)				// Tant que l'on est pas arrivé au point de sortie
 		{
-			
+			if(rang > 0 && this.liste_sommets.get(rang).getRang() == rang)
+			{
+				
+			}
 		}
 	}
 	

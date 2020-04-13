@@ -9,8 +9,8 @@ public class Sommet
 	private boolean point_entree = false;
 	private boolean point_sortie = false;
 	
-	private int date_au_plus_tot_sommet = -1;
-	private int date_au_plus_tard_sommet = -1;
+	private int date_au_plus_tot_sommet;
+	private int date_au_plus_tard_sommet;
 	
 	
 	/// CONSTRUCTEURS ///
