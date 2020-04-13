@@ -534,5 +534,10 @@ public class Graphe
 	}
 
 
+	public void dates_au_plus_tot()
+	{
+		
+	}
+	
 	/// METHODES ///
 }
