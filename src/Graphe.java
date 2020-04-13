@@ -11,6 +11,10 @@ public class Graphe
 	private boolean verif_circuit = false;
 	private boolean circuit;
 	
+	private int date_au_plus_tot = -1;
+	private int date_au_plus_tard = -1;
+	private int marge;
+	
 	private Scanner sc;
 
 	
@@ -94,6 +98,24 @@ public class Graphe
 
 	public void setVerif_circuit(boolean verif_circuit) 
 	{ this.verif_circuit = verif_circuit; }
+	
+	public int getDate_au_plus_tot() 
+	{ return date_au_plus_tot; }
+	
+	public void setDate_au_plus_tot(int date_au_plus_tot) 
+	{ this.date_au_plus_tot = date_au_plus_tot; }
+
+	public int getDate_au_plus_tard() 
+	{ return date_au_plus_tard; }
+
+	public void setDate_au_plus_tard(int date_au_plus_tard) 
+	{ this.date_au_plus_tard = date_au_plus_tard; }
+
+	public int getMarge() 
+	{ return marge; }
+
+	public void setMarge(int marge)
+	{ this.marge = marge; }
 	
 	/// GETTER AND SETTER ///
 	
@@ -510,6 +532,7 @@ public class Graphe
 		
 		System.out.println("\nToutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !\n\n");
 	}
+
 
 	/// METHODES ///
 }
