@@ -535,33 +535,89 @@ public class Graphe
 		System.out.println("\nToutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !\n\n");
 	}
 
-
 	public void dates_au_plus_tot()
 	{
+		int condition = 0;
+		for(int verif_condition = 0 ; verif_condition < this.liste_sommets.size() ; verif_condition++)
+		{
+			if(this.liste_sommets.get(verif_condition).isPoint_entree() == true)
+			{
+				condition = 1;
+			}
+		}
+		
+		if(condition == 0)
+		{
+			System.out.println("\nVous n'avez pas vérifiez si c'était un graphe d'ordonnancement !");
+			return;
+		}
+		
+		
+		
+		
 		int position_rang_0 = -1;
 		int position_rang_max = -1;
-		for(int i = 0 ; i < this.liste_sommets.size() ; i++)				// Récupérer la position du point d'entrée
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)				
 		{
-			if(this.liste_sommets.get(i).isPoint_entree() == true)
+			if(this.liste_sommets.get(i).isPoint_entree() == true)				// Récupérer la position du point d'entrée
 			{
 				position_rang_0 = i;
 			}
-			else if(this.liste_sommets.get(i).isPoint_sortie() == true)
+			else if(this.liste_sommets.get(i).isPoint_sortie() == true)			// Récupérer la position du point de sortie
 			{
 				position_rang_max = i;
 			}
 		}
 		
-		this.liste_sommets.get(position_rang_0).setDate_au_plus_tot_sommet(0);							// On set la date au plus tôt du point d'entrée à 0
-		this.setDate_au_plus_tot(0);																	// On set la date au plus tôt globale à 0 pour commencer le calcul
+		this.liste_sommets.get(position_rang_0).setDate_au_plus_tot_sommet(0);								// On set la date au plus tôt du point d'entrée à 0
+		this.setDate_au_plus_tot(0);																		// On set la date au plus tôt globale à 0 pour commencer le calcul
 		
-		for(int rang = 0 ; rang < this.liste_sommets.get(position_rang_max).getRang() ; rang++)				// Tant que l'on est pas arrivé au point de sortie
+		for(int rang = 0 ; rang <= this.liste_sommets.get(position_rang_max).getRang() ; rang++)				// Tant que l'on est pas arrivé au point de sortie, on vérifie tous les rangs
 		{
-			if(rang > 0 && this.liste_sommets.get(rang).getRang() == rang)
+			for(int j = 0 ; j < this.liste_sommets.size() ; j++)											// Parcourir la liste des sommets
 			{
-				
+				if(rang > 0 && this.liste_sommets.get(j).getRang() == rang)								// Pour les sommets de rang supérieurs à 0 (pas d'intéret pour le point d'entrée)
+				{																						// qui correspondent au rang étudier
+					ArrayList<Sommet> liste_sommet_predecesseur = new ArrayList<Sommet>();
+					
+					for(int predecesseur = 0 ; predecesseur <this.liste_sommets.size() ; predecesseur++)
+					{
+						if(this.liste_sommets.get(predecesseur).getRang() == rang - 1)						// Si le sommet est du rang inférieur, il peut être lié à un arc à étudier
+						{
+							for(int arc_successeur = 0; arc_successeur < this.liste_sommets.get(predecesseur).get_nb_arc() ; arc_successeur++)		// On vérifie tous les arcs
+							{
+								if(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur().equals(this.liste_sommets.get(j).getNom()))		// on ajoute les bons arcs
+								{																																// à la liste
+									Sommet nouveau_sommet = new Sommet(this.liste_sommets.get(predecesseur).getNom());
+									nouveau_sommet.nouvel_arc(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur(), this.liste_sommets.get(predecesseur).getArc(arc_successeur).getValeur());
+									nouveau_sommet.setDate_au_plus_tot_sommet(this.liste_sommets.get(predecesseur).getDate_au_plus_tot_sommet());
+									liste_sommet_predecesseur.add(nouveau_sommet);
+								}
+							}
+							
+							
+						}
+					}
+					
+					for(int date = 0 ; date < liste_sommet_predecesseur.size() ; date++)			// Vérifions pour tous les arcs lequel est le plus long
+					{
+						if(liste_sommet_predecesseur.get(date).getArc(0).getValeur() + liste_sommet_predecesseur.get(date).getDate_au_plus_tot_sommet() > this.liste_sommets.get(j).getDate_au_plus_tot_sommet())
+						{
+							this.liste_sommets.get(j).setDate_au_plus_tot_sommet(liste_sommet_predecesseur.get(date).getArc(0).getValeur() + liste_sommet_predecesseur.get(date).getDate_au_plus_tot_sommet());
+						}
+					}
+				}
 			}
+			
 		}
+		
+		System.out.println("\nDates au plus tôt :\n");
+		for(int test = 0 ; test < this.liste_sommets.size() ; test++)
+		{
+			System.out.println("Sommet " + this.liste_sommets.get(test).getNom() + " : " + this.liste_sommets.get(test).getDate_au_plus_tot_sommet());
+		}
+		
+		System.out.println("\nLa date au plus tôt de ce projet est donc : " + this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet() + "\n");
 	}
 	
 	/// METHODES ///
