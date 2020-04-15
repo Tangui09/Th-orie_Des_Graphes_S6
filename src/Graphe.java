@@ -710,6 +710,15 @@ public class Graphe
 		}
 		System.out.println("\n");
 	}
-	
+
+	public void marges()
+	{		
+		System.out.println("\nCalcul des marges totales : \n");
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+		{
+			this.liste_sommets.get(i).setMarge_totale(this.liste_sommets.get(i).getDate_au_plus_tard_sommet() - this.liste_sommets.get(i).getDate_au_plus_tot_sommet());
+			System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : " + this.liste_sommets.get(i).getMarge_totale());
+		}
+	}
 	/// METHODES ///
 }

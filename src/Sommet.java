@@ -11,6 +11,7 @@ public class Sommet
 	
 	private int date_au_plus_tot_sommet;
 	private int date_au_plus_tard_sommet;
+	private int marge_totale;
 	
 	
 	/// CONSTRUCTEURS ///
@@ -79,6 +80,12 @@ public class Sommet
 
 	public void setDate_au_plus_tard_sommet(int date_au_plus_tard_sommet) 
 	{ this.date_au_plus_tard_sommet = date_au_plus_tard_sommet; }
+
+	public int getMarge_totale() 
+	{ return marge_totale; }
+
+	public void setMarge_totale(int marge_totale) 
+	{ this.marge_totale = marge_totale; }
 	
 	/// GETTER ET SETTER ///
 }
