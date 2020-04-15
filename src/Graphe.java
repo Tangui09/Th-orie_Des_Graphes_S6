@@ -11,6 +11,10 @@ public class Graphe
 	private boolean verif_circuit = false;
 	private boolean circuit;
 	
+	private int date_au_plus_tot = -1;
+	private int date_au_plus_tard = -1;
+	private int marge;
+	
 	private Scanner sc;
 
 	
@@ -94,6 +98,24 @@ public class Graphe
 
 	public void setVerif_circuit(boolean verif_circuit) 
 	{ this.verif_circuit = verif_circuit; }
+	
+	public int getDate_au_plus_tot() 
+	{ return date_au_plus_tot; }
+	
+	public void setDate_au_plus_tot(int date_au_plus_tot) 
+	{ this.date_au_plus_tot = date_au_plus_tot; }
+
+	public int getDate_au_plus_tard() 
+	{ return date_au_plus_tard; }
+
+	public void setDate_au_plus_tard(int date_au_plus_tard) 
+	{ this.date_au_plus_tard = date_au_plus_tard; }
+
+	public int getMarge() 
+	{ return marge; }
+
+	public void setMarge(int marge)
+	{ this.marge = marge; }
 	
 	/// GETTER AND SETTER ///
 	
@@ -425,6 +447,7 @@ public class Graphe
 		if(rang_0 == 1)																										// Si on a qu'un élément de rang 0
 		{
 			System.out.println("Un seul point d'entrée : " + this.liste_sommets.get(position_rang_0).getNom());
+			this.liste_sommets.get(position_rang_0).setPoint_entree(true);
 		}
 		else
 		{
@@ -436,6 +459,7 @@ public class Graphe
 		if(rang_max == 1)																									// Si on a un seul élément de rang max
 		{
 			System.out.println("Un seul point de sortie : " + this.liste_sommets.get(position_rang_max).getNom());
+			this.liste_sommets.get(position_rang_max).setPoint_sortie(true);
 		}
 		else
 		{
@@ -511,5 +535,190 @@ public class Graphe
 		System.out.println("\nToutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !\n\n");
 	}
 
+	public void dates_au_plus_tot()
+	{
+		int condition = 0;
+		for(int verif_condition = 0 ; verif_condition < this.liste_sommets.size() ; verif_condition++)
+		{
+			if(this.liste_sommets.get(verif_condition).isPoint_entree() == true)
+			{
+				condition = 1;
+			}
+		}
+		
+		if(condition == 0)
+		{
+			System.out.println("\nVous n'avez pas vérifiez si c'était un graphe d'ordonnancement !");
+			return;
+		}
+		
+		
+		
+		
+		int position_rang_0 = -1;
+		int position_rang_max = -1;
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)				
+		{
+			if(this.liste_sommets.get(i).isPoint_entree() == true)				// Récupérer la position du point d'entrée
+			{
+				position_rang_0 = i;
+			}
+			else if(this.liste_sommets.get(i).isPoint_sortie() == true)			// Récupérer la position du point de sortie
+			{
+				position_rang_max = i;
+			}
+		}
+		
+		this.liste_sommets.get(position_rang_0).setDate_au_plus_tot_sommet(0);								// On set la date au plus tôt du point d'entrée à 0
+		this.setDate_au_plus_tot(0);																		// On set la date au plus tôt globale à 0 pour commencer le calcul
+		
+		for(int rang = 0 ; rang <= this.liste_sommets.get(position_rang_max).getRang() ; rang++)				// Tant que l'on est pas arrivé au point de sortie, on vérifie tous les rangs
+		{
+			for(int j = 0 ; j < this.liste_sommets.size() ; j++)											// Parcourir la liste des sommets
+			{
+				if(rang > 0 && this.liste_sommets.get(j).getRang() == rang)								// Pour les sommets de rang supérieurs à 0 (pas d'intéret pour le point d'entrée)
+				{																						// qui correspondent au rang étudier
+					ArrayList<Sommet> liste_sommet_predecesseur = new ArrayList<Sommet>();
+					
+					for(int predecesseur = 0 ; predecesseur <this.liste_sommets.size() ; predecesseur++)	// Cherchons les predecesseurs
+					{
+						if(this.liste_sommets.get(predecesseur).getRang() == rang - 1)						// Si le sommet est du rang inférieur, il peut être lié à un arc à étudier
+						{
+							for(int arc_successeur = 0; arc_successeur < this.liste_sommets.get(predecesseur).get_nb_arc() ; arc_successeur++)		// On vérifie tous les arcs
+							{
+								if(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur().equals(this.liste_sommets.get(j).getNom()))		// on ajoute les bons arcs
+								{																																// à la liste
+									Sommet nouveau_sommet = new Sommet(this.liste_sommets.get(predecesseur).getNom());
+									nouveau_sommet.nouvel_arc(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur(), this.liste_sommets.get(predecesseur).getArc(arc_successeur).getValeur());
+									nouveau_sommet.setDate_au_plus_tot_sommet(this.liste_sommets.get(predecesseur).getDate_au_plus_tot_sommet());
+									liste_sommet_predecesseur.add(nouveau_sommet);
+								}
+							}
+							
+							
+						}
+					}
+					
+					for(int date = 0 ; date < liste_sommet_predecesseur.size() ; date++)			// Vérifions pour tous les arcs lequel est le plus long
+					{
+						if(liste_sommet_predecesseur.get(date).getArc(0).getValeur() + liste_sommet_predecesseur.get(date).getDate_au_plus_tot_sommet() > this.liste_sommets.get(j).getDate_au_plus_tot_sommet())
+						{
+							this.liste_sommets.get(j).setDate_au_plus_tot_sommet(liste_sommet_predecesseur.get(date).getArc(0).getValeur() + liste_sommet_predecesseur.get(date).getDate_au_plus_tot_sommet());
+						}
+					}
+				}
+			}
+			
+		}
+		
+		System.out.println("\nDates au plus tôt :\n");
+		for(int test = 0 ; test < this.liste_sommets.size() ; test++)
+		{
+			System.out.println("Sommet " + this.liste_sommets.get(test).getNom() + " : " + this.liste_sommets.get(test).getDate_au_plus_tot_sommet());
+		}
+	}
+	
+	public void dates_au_plus_tard()
+	{
+		int condition = 0;
+		for(int verif_condition = 0 ; verif_condition < this.liste_sommets.size() ; verif_condition++)
+		{
+			if(this.liste_sommets.get(verif_condition).isPoint_sortie() == true)
+			{
+				condition = 1;
+			}
+		}
+		
+		if(condition == 0)
+		{
+			System.out.println("\nVous n'avez pas vérifiez si c'était un graphe d'ordonnancement !");
+			return;
+		}
+		
+		
+		
+		
+		int position_rang_0 = -1;
+		int position_rang_max = -1;
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)				
+		{
+			if(this.liste_sommets.get(i).isPoint_entree() == true)				// Récupérer la position du point d'entrée
+			{
+				position_rang_0 = i;
+			}
+			else if(this.liste_sommets.get(i).isPoint_sortie() == true)			// Récupérer la position du point de sortie
+			{
+				position_rang_max = i;
+			}
+		}
+		
+		this.liste_sommets.get(position_rang_max).setDate_au_plus_tard_sommet(this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet());	// On set la date au plus tôt du point d'entrée à 0
+		this.setDate_au_plus_tard(this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet());												// On copie la date au plus tot du point de sortie
+		this.liste_sommets.get(position_rang_0).setDate_au_plus_tard_sommet(0);
+		
+		for(int rang = this.liste_sommets.get(position_rang_max).getRang() ; rang > 1 ; rang--)				// Tant que l'on est pas arrivé au point d'entrée, on vérifie tous les rangs
+		{
+			for(int j = 0 ; j < this.liste_sommets.size() ; j++)											// Parcourir la liste des sommets
+			{
+				if(this.liste_sommets.get(j).getRang() == rang)												// Pour les sommets que l'on peut étudier, soit ceux du rang précédent
+				{																					
+					ArrayList<Sommet> liste_sommet_predecesseur = new ArrayList<Sommet>();
+					
+					for(int predecesseur = 0 ; predecesseur <this.liste_sommets.size() ; predecesseur++)	// Cherchons les predecesseurs
+					{
+							for(int arc_successeur = 0; arc_successeur < this.liste_sommets.get(predecesseur).get_nb_arc() ; arc_successeur++)		// On vérifie tous les arcs
+							{
+								if(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur().equals(this.liste_sommets.get(j).getNom()))		// on ajoute les bons arcs
+								{																																// à la liste
+									Sommet nouveau_sommet = new Sommet(this.liste_sommets.get(predecesseur).getNom());
+									nouveau_sommet.nouvel_arc(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur(), this.liste_sommets.get(predecesseur).getArc(arc_successeur).getValeur());
+									nouveau_sommet.setDate_au_plus_tard_sommet(this.liste_sommets.get(position_rang_max).getDate_au_plus_tard_sommet());	// Valeur max, pour avoir un point de départ pour comparer les dates entre elles
+									liste_sommet_predecesseur.add(nouveau_sommet);
+								}
+							}
+					}
+					
+					
+					
+					for(int date = 0 ; date < liste_sommet_predecesseur.size() ; date++)			// Vérifions pour tous les arcs lequel est le plus court
+					{
+						if(this.liste_sommets.get(j).getDate_au_plus_tard_sommet() - liste_sommet_predecesseur.get(date).getArc(0).getValeur() < liste_sommet_predecesseur.get(date).getDate_au_plus_tard_sommet())
+						{
+							liste_sommet_predecesseur.get(date).setDate_au_plus_tard_sommet(this.liste_sommets.get(j).getDate_au_plus_tard_sommet() - liste_sommet_predecesseur.get(date).getArc(0).getValeur());
+						}
+					}
+					
+					for(int i1 = 0 ; i1 < liste_sommet_predecesseur.size() ; i1++)			// Pour chaque élément étudier précedemment
+					{
+						for(int i2 = 0 ; i2 < this.liste_sommets.size() ; i2++)				
+						{
+							if(this.liste_sommets.get(i2).getNom().equals(liste_sommet_predecesseur.get(i1).getNom()))		// Cherchons l'élément correspondant dans la liste des sommets
+							{
+								this.liste_sommets.get(i2).setDate_au_plus_tard_sommet(liste_sommet_predecesseur.get(i1).getDate_au_plus_tard_sommet());	// Modifions la date au plus tard
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		
+		System.out.println("\nDates au plus tard :\n");
+		for(int test = 0 ; test < this.liste_sommets.size() ; test++)
+		{
+			System.out.println("Sommet " + this.liste_sommets.get(test).getNom() + " : " + this.liste_sommets.get(test).getDate_au_plus_tard_sommet());
+		}
+		System.out.println("\n");
+	}
+
+	public void marges()
+	{		
+		System.out.println("\nCalcul des marges totales : \n");
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+		{
+			this.liste_sommets.get(i).setMarge_totale(this.liste_sommets.get(i).getDate_au_plus_tard_sommet() - this.liste_sommets.get(i).getDate_au_plus_tot_sommet());
+			System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : " + this.liste_sommets.get(i).getMarge_totale());
+		}
+	}
 	/// METHODES ///
 }

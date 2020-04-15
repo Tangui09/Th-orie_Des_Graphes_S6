@@ -22,6 +22,7 @@ public class Main {
 			System.out.println("3°) Détéction de circuit");
 			System.out.println("4°) Calculer le rang");
 			System.out.println("5°) Vérifier si c'est un graphe d'ordonnancement");
+			System.out.println("6°) Calendrier");
 			
 			System.out.print("\nNuméro de l'action à faire : ");
 			sc1 = new Scanner(System.in);
@@ -57,8 +58,15 @@ public class Main {
 			  case 5:
 					graphe.verifier_ordonnancement();;
 					x = -1;
-				    break;    
-				
+				    break;  
+				    
+			  case 6:
+					graphe.dates_au_plus_tot();
+					graphe.dates_au_plus_tard();
+					graphe.marges();
+					x = -1;
+				    break; 
+				    
 			  default:
 				  System.out.println("Veuillez choisir un numéro cohérent !");
 				  x = -1;
