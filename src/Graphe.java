@@ -656,7 +656,7 @@ public class Graphe
 		this.setDate_au_plus_tard(this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet());												// On copie la date au plus tot du point de sortie
 		this.liste_sommets.get(position_rang_0).setDate_au_plus_tard_sommet(0);
 		
-		for(int rang = this.liste_sommets.get(position_rang_max).getRang() ; rang > 0 ; rang--)				// Tant que l'on est pas arrivé au point d'entrée, on vérifie tous les rangs
+		for(int rang = this.liste_sommets.get(position_rang_max).getRang() ; rang > 1 ; rang--)				// Tant que l'on est pas arrivé au point d'entrée, on vérifie tous les rangs
 		{
 			for(int j = 0 ; j < this.liste_sommets.size() ; j++)											// Parcourir la liste des sommets
 			{
@@ -666,8 +666,6 @@ public class Graphe
 					
 					for(int predecesseur = 0 ; predecesseur <this.liste_sommets.size() ; predecesseur++)	// Cherchons les predecesseurs
 					{
-						if(this.liste_sommets.get(predecesseur).getRang() == rang - 1)						// Si le sommet est du rang inférieur, il peut être lié à un arc à étudier
-						{
 							for(int arc_successeur = 0; arc_successeur < this.liste_sommets.get(predecesseur).get_nb_arc() ; arc_successeur++)		// On vérifie tous les arcs
 							{
 								if(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur().equals(this.liste_sommets.get(j).getNom()))		// on ajoute les bons arcs
@@ -678,9 +676,6 @@ public class Graphe
 									liste_sommet_predecesseur.add(nouveau_sommet);
 								}
 							}
-							
-							
-						}
 					}
 					
 					
