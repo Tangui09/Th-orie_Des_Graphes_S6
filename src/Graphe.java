@@ -710,6 +710,10 @@ public class Graphe
 		}
 		System.out.println("\n");
 	}
-	
+
+	public void marges()
+	{
+		
+	}
 	/// METHODES ///
 }
