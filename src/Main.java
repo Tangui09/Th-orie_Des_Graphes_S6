@@ -63,6 +63,7 @@ public class Main {
 			  case 6:
 					graphe.dates_au_plus_tot();
 					graphe.dates_au_plus_tard();
+					graphe.marges();
 					x = -1;
 				    break; 
 				    
