@@ -711,7 +711,7 @@ public class Graphe
 		System.out.println("\n");
 	}
 
-	public void marges()
+	public void marges_totales()
 	{		
 		System.out.println("\nCalcul des marges totales : \n");
 		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
@@ -720,5 +720,61 @@ public class Graphe
 			System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : " + this.liste_sommets.get(i).getMarge_totale());
 		}
 	}
+	
+	public void marges_libres()
+	{
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+		{
+			if(this.liste_sommets.get(i).isPoint_entree() == false && this.liste_sommets.get(i).isPoint_sortie() == false)
+			{
+				int marge_libre_sommet = 0;
+				
+				for(int arc = 0 ; arc < this.liste_sommets.get(i).get_nb_arc() ; arc++)
+				{
+					for(int j = 0 ; j < this.liste_sommets.size() ; j++)
+					{
+						if(this.liste_sommets.get(i).getArc(arc).getSuccesseur().equals(this.liste_sommets.get(j).getNom()))
+						{
+							if(arc == 0)
+							{
+								marge_libre_sommet = this.liste_sommets.get(j).getDate_au_plus_tot_sommet() - this.liste_sommets.get(i).getDate_au_plus_tot_sommet() - this.liste_sommets.get(i).getArc(arc).getValeur();
+							}
+							else
+							{
+								int new_marge_libre = this.liste_sommets.get(j).getDate_au_plus_tot_sommet() - this.liste_sommets.get(i).getDate_au_plus_tot_sommet() - this.liste_sommets.get(i).getArc(arc).getValeur();
+								
+								if(new_marge_libre < marge_libre_sommet)
+								{
+									marge_libre_sommet = new_marge_libre;
+								}
+							}
+						}
+					}
+				}
+				
+				this.liste_sommets.get(i).setMarge_libre(marge_libre_sommet);
+			}
+		}
+		
+		System.out.println("\nCalcul des marges libres : \n");
+		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
+		{
+			if(this.liste_sommets.get(i).isPoint_entree() == true)
+			{
+				System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : Point d'entrée");
+			}
+			else if(this.liste_sommets.get(i).isPoint_sortie() == true)
+			{
+				System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : Point de sortie");
+			}
+			else
+			{
+				System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : " + this.liste_sommets.get(i).getMarge_libre());
+			}
+		}
+	}
+	
+	
+	
 	/// METHODES ///
 }
