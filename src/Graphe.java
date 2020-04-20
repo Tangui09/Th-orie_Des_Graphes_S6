@@ -169,11 +169,11 @@ public class Graphe
 		globalPanel.setLayout(new BorderLayout(0,0));
 		
 		
-
+		
 		JLabel infos_graphe = new JLabel("Ce graphe possède " + this.get_nb_sommets() + " sommets et " + this.get_nb_arc() + " arcs !");
 		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
-		infos_graphe.setBorder(new EmptyBorder(25, 0, 0, 0));
+		infos_graphe.setBorder(new EmptyBorder(150, 0, 0, 0));
 		globalPanel.add(infos_graphe, BorderLayout.NORTH);
 		
 		
