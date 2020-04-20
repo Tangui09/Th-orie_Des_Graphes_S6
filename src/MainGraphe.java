@@ -31,10 +31,10 @@ public class MainGraphe extends JFrame{
 
 	public MainGraphe()
 	{
-		this.setTitle("Projet de Théorie des Graphes - S6");										//Set the title of the frame
-		this.setPreferredSize(new Dimension(800, 600));				//Set the size of the frame by the number of pixel (height and widht)
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		//Set the way of closing the frame by clicking on the cross (top right of the frame) 
-		this.setResizable(false);									//Avoid of modifying the frame size
+		this.setTitle("Projet de Théorie des Graphes - S6");			
+		this.setPreferredSize(new Dimension(800, 600));				
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		this.setResizable(false);									
 		
 		
 		
@@ -116,6 +116,7 @@ public class MainGraphe extends JFrame{
 					String nom_graphe = "L3-A9-Graphe" + numero.getText() + ".txt";
 					Graphe graphe = new Graphe(nom_graphe);
 					graphe.afficher_graphe();
+					dispose();
 				}
 			}
 			);

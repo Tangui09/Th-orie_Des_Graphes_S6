@@ -1,6 +1,21 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class Graphe 
 {
@@ -62,6 +77,8 @@ public class Graphe
 		}catch(Exception e) {}
 		
 		this.classer_liste_sommets();															// Classer la liste
+	
+		menu_graphe(nom_fichier);
 	}
 	
 	/// CONSTRUCTEURS ///
@@ -148,10 +165,26 @@ public class Graphe
 		return -1;												// Sinon, retourner -1 pour signaler qu'il n'existe pas
 	}
 	
-	public void afficher_graphe()
+	public JPanel afficher_graphe()
 	{
-		System.out.println("\nCe graphe possède " + this.get_nb_sommets() + " sommets !");
-		System.out.println("Ce graphe possède " + this.get_nb_arc() + " arcs !\n");
+		JPanel myPanel = new JPanel();
+		myPanel.setLayout(new GridBagLayout());
+		
+		
+		GridBagConstraints gbcMain = new GridBagConstraints();
+		gbcMain.gridx = 0;
+		gbcMain.gridy = 0;
+		gbcMain.fill = GridBagConstraints.HORIZONTAL;
+		gbcMain.insets = new Insets(10,10,10,10);
+		
+		
+		
+		JLabel Sommet = new JLabel("Ce graphe possède " + this.get_nb_sommets() + " sommets et " + this.get_nb_arc() + " arcs !");
+		Sommet.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+		myPanel.add(Sommet,gbcMain);
+		
+		
 		
 		for(int i = 0 ; i < this.get_nb_sommets() ; i++)					// Parcourir la list des sommets du graphe
 		{
@@ -168,6 +201,8 @@ public class Graphe
 				}
 			}
 		}
+		
+		return myPanel;
 	}
 	
 	public void matrice_adjacence()
@@ -779,9 +814,114 @@ public class Graphe
 	
 	/// AFFICHAGE ///
 	
-	public void menu_graphe()
+	public void menu_graphe(String nom_graphe)
 	{
+		JFrame frame_graphe = new JFrame();
 		
+		frame_graphe.setTitle(nom_graphe);			
+		frame_graphe.setPreferredSize(new Dimension(800, 600));				
+		frame_graphe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		frame_graphe.setResizable(false);
+		
+		
+		
+		JPanel mainPanel = new JPanel();							//Global panel of the frame
+		frame_graphe.setContentPane(mainPanel);									//Setting the previous panel as the global panel of the frame
+		mainPanel.setLayout(new BorderLayout(0,0));					//Change the panel type to a NORTH-SOUTH-EAST-WEST-CENTER model
+		BorderLayout layout = (BorderLayout)mainPanel.getLayout();
+
+		
+		
+		/// CENTER PANEL ///
+		
+		JPanel centerPanel = new JPanel();
+		mainPanel.add(centerPanel, BorderLayout.CENTER);
+		
+		/// CENTER PANEL ///
+		
+		
+		///TOP PANEL
+		
+		JPanel topPanel = new JPanel();								//New panel, which will be on the top of the frame
+		mainPanel.add(topPanel, BorderLayout.NORTH);				//Setting its postion to be on the NORTH of the mainPanel
+		topPanel.setLayout(new BorderLayout(0,0));					//Change the panel type to a NORTH-SOUTH-EAST-WEST-CENTER model
+			
+		JLabel grand_titre = new JLabel("Projet de Théorie des Graphes S6");					//Create a button to exit the entire program
+		topPanel.add(grand_titre, BorderLayout.NORTH);				//Setting its postion to be on the EASt of the topPanel
+		grand_titre.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		grand_titre.setHorizontalAlignment(SwingConstants.CENTER);
+		grand_titre.setBorder(new EmptyBorder(25, 0, 0, 0));
+		
+		JLabel nos_noms = new JLabel("BARTIER Marion     CARDOSO Nicolas     SEDRAOUI Selma");					//Create a button to exit the entire program
+		topPanel.add(nos_noms, BorderLayout.SOUTH);				//Setting its postion to be on the EASt of the topPanel
+		nos_noms.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		nos_noms.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		///TOP PANEL
+		
+		
+		///SOUTH PANEL
+		
+		JPanel bottomPanel = new JPanel();								//New panel, which will be on the top of the frame
+		mainPanel.add(bottomPanel, BorderLayout.SOUTH);					//Setting its postion to be on the NORTH of the mainPanel
+		bottomPanel.setLayout(new GridBagLayout());
+		
+		
+		GridBagConstraints gbcMain = new GridBagConstraints();		//Create the constraint that will help us to place a component on the panel (by its coordinates)
+		gbcMain.gridx = 0;											//Set default coordinate x on 0 (column 1)
+		gbcMain.gridy = 0;											//Set default coordinate x on 0 (line 1)
+		gbcMain.fill = GridBagConstraints.HORIZONTAL;				//If the component is too big for one cell, fill horizontally to the next cell
+		gbcMain.insets = new Insets(10,10,10,10);
+		
+		JButton affichageButton = new JButton("Afficher graphe");
+		bottomPanel.add(affichageButton,gbcMain);
+		affichageButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				JPanel centerPanel = afficher_graphe();
+				mainPanel.add(centerPanel, BorderLayout.CENTER);
+				frame_graphe.setContentPane(mainPanel);
+				frame_graphe.pack();
+			}
+		});
+		
+		gbcMain.gridx = 1;
+		JButton matriceButton = new JButton("Matrices");
+		bottomPanel.add(matriceButton,gbcMain);
+		
+		gbcMain.gridx = 2;
+		JButton circuitButton = new JButton("Détéction circuit");
+		bottomPanel.add(circuitButton,gbcMain);
+		
+		gbcMain.gridx = 3;
+		JButton rangButton = new JButton("Calcul Rang");
+		bottomPanel.add(rangButton,gbcMain);
+		
+		gbcMain.gridx = 4;
+		JButton ordonnancementButton = new JButton("Ordonnancement");
+		bottomPanel.add(ordonnancementButton,gbcMain);
+		
+		gbcMain.gridx = 5;
+		JButton dateButton = new JButton("Dates et Marges");
+		bottomPanel.add(dateButton,gbcMain);
+		
+		gbcMain.gridy = 1;
+		gbcMain.gridx = 2;
+		gbcMain.gridwidth = 2;
+		JButton changeButton = new JButton("Changer de graphe");
+		bottomPanel.add(changeButton,gbcMain);
+		
+		
+		
+		///SOUTH PANEL
+		
+		
+		
+		frame_graphe.pack();										//pack all the components together, to create the frame
+		frame_graphe.setLocationRelativeTo(null);			//Center the frame on the screen
+		frame_graphe.setVisible(true);						//Set the frame visible
 	}
 	
 	
