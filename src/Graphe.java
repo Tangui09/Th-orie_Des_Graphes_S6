@@ -94,9 +94,7 @@ public class Graphe
 	{ this.nb_sommets = nb_sommets; }
 	
 	public int get_nb_arc()																// Récupérer le nombre d'arc du graphe
-	{
-		return nb_arc;
-	}
+	{ return nb_arc; }
 	
 	public void set_nb_arc(int nb_arc) 
 	{ this.nb_arc = nb_arc; }
@@ -167,7 +165,22 @@ public class Graphe
 	
 	public JPanel afficher_graphe()
 	{
+		JPanel globalPanel = new JPanel();
+		globalPanel.setLayout(new BorderLayout(0,0));
+		
+		
+
+		JLabel infos_graphe = new JLabel("Ce graphe possède " + this.get_nb_sommets() + " sommets et " + this.get_nb_arc() + " arcs !");
+		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
+		infos_graphe.setBorder(new EmptyBorder(25, 0, 0, 0));
+		globalPanel.add(infos_graphe, BorderLayout.NORTH);
+		
+		
+		
+		
 		JPanel myPanel = new JPanel();
+		globalPanel.add(myPanel, BorderLayout.CENTER);
 		myPanel.setLayout(new GridBagLayout());
 		
 		
@@ -179,30 +192,49 @@ public class Graphe
 		
 		
 		
-		JLabel Sommet = new JLabel("Ce graphe possède " + this.get_nb_sommets() + " sommets et " + this.get_nb_arc() + " arcs !");
-		Sommet.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		Sommet.setHorizontalAlignment(SwingConstants.CENTER);
-		myPanel.add(Sommet,gbcMain);
-		
-		
 		
 		for(int i = 0 ; i < this.get_nb_sommets() ; i++)					// Parcourir la list des sommets du graphe
 		{
+			if(gbcMain.gridy == 7)
+			{
+				gbcMain.gridx += 1;
+				gbcMain.gridy = 0;
+			}
+			
+			
 			if(liste_sommets.get(i).get_nb_arc() == 0)						// Si aucun arc ne part de ce sommet
 			{
-				System.out.println(liste_sommets.get(i).getNom());			
+				gbcMain.gridy += 1;
+				
+				JLabel Sommet = new JLabel(liste_sommets.get(i).getNom());
+				Sommet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+				Sommet.setBorder(new EmptyBorder(0, 10, 0, 10));
+				myPanel.add(Sommet,gbcMain);	
 			}
 			else
 			{
 				for(int j = 0 ; j < liste_sommets.get(i).get_nb_arc() ; j++)
 				{
+					if(gbcMain.gridy == 7)
+					{
+						gbcMain.gridx += 1;
+						gbcMain.gridy = 0;
+					}
+					gbcMain.gridy += 1;
+					
 					Arc t = liste_sommets.get(i).getArc(j);
-					System.out.println(liste_sommets.get(i).getNom() + " -> " + t.getSuccesseur() + " = " + t.getValeur());
+
+					JLabel Sommet = new JLabel(liste_sommets.get(i).getNom() + " -> " + t.getSuccesseur() + " = " + t.getValeur());
+					Sommet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+					Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+					Sommet.setBorder(new EmptyBorder(0, 10, 0, 10));
+					myPanel.add(Sommet,gbcMain);
 				}
 			}
 		}
 		
-		return myPanel;
+		return globalPanel;
 	}
 	
 	public void matrice_adjacence()
@@ -912,7 +944,14 @@ public class Graphe
 		gbcMain.gridwidth = 2;
 		JButton changeButton = new JButton("Changer de graphe");
 		bottomPanel.add(changeButton,gbcMain);
-		
+		changeButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				new MainGraphe();
+				frame_graphe.dispose();
+			}
+		});
 		
 		
 		///SOUTH PANEL

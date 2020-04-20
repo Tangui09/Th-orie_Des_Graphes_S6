@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -7,28 +6,19 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 
 public class MainGraphe extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private static Scanner sc1;
-	private static Scanner sc;
-
+	
 	public MainGraphe()
 	{
 		this.setTitle("Projet de Théorie des Graphes - S6");			
@@ -41,7 +31,7 @@ public class MainGraphe extends JFrame{
 		JPanel mainPanel = new JPanel();							//Global panel of the frame
 		setContentPane(mainPanel);									//Setting the previous panel as the global panel of the frame
 		mainPanel.setLayout(new BorderLayout(0,0));					//Change the panel type to a NORTH-SOUTH-EAST-WEST-CENTER model
-		
+		BorderLayout layout = (BorderLayout)mainPanel.getLayout();
 		
 		
 		///TOP PANEL
@@ -113,88 +103,56 @@ public class MainGraphe extends JFrame{
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					String nom_graphe = "L3-A9-Graphe" + numero.getText() + ".txt";
-					Graphe graphe = new Graphe(nom_graphe);
-					graphe.afficher_graphe();
-					dispose();
+					if((Integer.parseInt(numero.getText()) <= 13) && (Integer.parseInt(numero.getText()) >= 0))
+					{
+						String nom_graphe = "L3-A9-Graphe" + numero.getText() + ".txt";
+						new Graphe(nom_graphe);
+						dispose();
+					}
+					else
+					{
+						JPanel topPanel = new JPanel();								//New panel, which will be on the top of the frame
+						mainPanel.add(topPanel, BorderLayout.NORTH);				//Setting its postion to be on the NORTH of the mainPanel
+						topPanel.setLayout(new BorderLayout(0,0));
+						
+						getContentPane().remove(layout.getLayoutComponent(BorderLayout.SOUTH));
+						JPanel new_southPanel = new JPanel();
+						new_southPanel.setLayout(new BorderLayout(0,0));
+						
+						JLabel pas_bien = new JLabel("Choisissez un numéro de graphe valide");
+						pas_bien.setFont(new Font("Tahoma", Font.PLAIN, 21));
+						pas_bien.setHorizontalAlignment(SwingConstants.CENTER);
+						pas_bien.setBorder(new EmptyBorder(0, 0, 30, 0));
+						new_southPanel.add(pas_bien, BorderLayout.CENTER);
+						
+						mainPanel.add(new_southPanel, BorderLayout.SOUTH);
+						setContentPane(mainPanel);
+						pack();
+					}
 				}
 			}
 			);
 			
 		///CENTER PANEL
 			
+		
 			
+			
+		/// SOUTH PANEL ///	
+			
+			
+		JPanel southPanel = new JPanel();
+		mainPanel.add(southPanel, BorderLayout.SOUTH);
+			
+			
+		/// SOUTH PANEL ///		
 			
 			
 		pack();										//pack all the components together, to create the frame
 		this.setLocationRelativeTo(null);			//Center the frame on the screen
 		this.setVisible(true);						//Set the frame visible
 	}	
-		/*
-		
-		int x = -1;
-		while(x == -1)
-		{
-			System.out.println("\nQue voulez faire ?");
-			System.out.println("0°) Choisir un autre graphe");
-			System.out.println("1°) Afficher le graphe");
-			System.out.println("2°) Afficher la matrice d'adjacence et la matrice de valeur");
-			System.out.println("3°) Détéction de circuit");
-			System.out.println("4°) Calculer le rang");
-			System.out.println("5°) Vérifier si c'est un graphe d'ordonnancement");
-			System.out.println("6°) Calendrier");
-			
-			System.out.print("\nNuméro de l'action à faire : ");
-			sc1 = new Scanner(System.in);
-			x = sc1.nextInt();
-			
-			switch(x) {
-			case 0:
-				graphe = choisir_graphe();
-				x = -1;
-			    break;
-			    
-			  case 1:
-				graphe.afficher_graphe();
-				x = -1;
-			    break;
-			    
-			  case 2:
-			    graphe.matrice_adjacence();
-			    graphe.matrice_valeur();
-			    x = -1;
-			    break;
-			    
-			  case 3:
-					graphe.detection_circuit();
-					x = -1;
-				    break;
-			 
-			  case 4:
-					graphe.calcul_rang();;
-					x = -1;
-				    break;  
-				    
-			  case 5:
-					graphe.verifier_ordonnancement();;
-					x = -1;
-				    break;  
-				    
-			  case 6:
-					graphe.dates_au_plus_tot();
-					graphe.dates_au_plus_tard();
-					graphe.marges_totales();
-					graphe.marges_libres();
-					x = -1;
-				    break; 
-				    
-			  default:
-				  System.out.println("Veuillez choisir un numéro cohérent !");
-				  x = -1;
-			}
-		}
-	}
-	*/
+
 	public static Graphe choisir_graphe(String new_graphe)
 	{
 		Graphe graphe = new Graphe(new_graphe);
