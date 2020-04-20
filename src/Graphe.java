@@ -78,9 +78,6 @@ public class Graphe
 	
 	public int get_nb_arc()																// Récupérer le nombre d'arc du graphe
 	{
-		for(int i = 0 ; i < this.get_nb_sommets() ; i++)
-		{ this.nb_arc += this.liste_sommets.get(i).get_nb_arc(); }
-		
 		return nb_arc;
 	}
 	
@@ -775,4 +772,18 @@ public class Graphe
 	}
 	
 	/// METHODES ///
+	
+	
+	
+	
+	
+	/// AFFICHAGE ///
+	
+	public void menu_graphe()
+	{
+		
+	}
+	
+	
+	/// AFFICHAGE ///
 }
