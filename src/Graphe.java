@@ -237,24 +237,64 @@ public class Graphe
 		return globalPanel;
 	}
 	
-	public void matrice_adjacence()
+	public JPanel matrice_adjacence()
 	{
-		System.out.println("\nMatrice d'adjacence\n");
+		JPanel globalPanel = new JPanel();
+		globalPanel.setLayout(new BorderLayout(0,0));
+		
+		
+		JLabel infos_graphe = new JLabel("Matrice d'adjacence");
+		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
+		infos_graphe.setBorder(new EmptyBorder(90, 0, 0, 0));
+		globalPanel.add(infos_graphe, BorderLayout.NORTH);
+		
+		
+		JPanel matriceAdjacencePanel = new JPanel();
+		globalPanel.add(matriceAdjacencePanel, BorderLayout.CENTER);
+		matriceAdjacencePanel.setLayout(new GridBagLayout());
+		
+		GridBagConstraints gbcMain = new GridBagConstraints();
+		gbcMain.gridx = 0;
+		gbcMain.gridy = 0;
+		gbcMain.fill = GridBagConstraints.HORIZONTAL;
+		gbcMain.insets = new Insets(10,10,10,10);
+		
+		
+		
 		
 		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
-		{ System.out.print("\t" + this.liste_sommets.get(i).getNom()); }
+		{
+			gbcMain.gridx += 1;
+			
+			JLabel Sommet = new JLabel(this.liste_sommets.get(i).getNom());
+			Sommet.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+			matriceAdjacencePanel.add(Sommet,gbcMain);
+		}
 		
-		System.out.print("\n");
+		
 		
 		for(int j = 0 ; j < this.liste_sommets.size() ; j++)							//Vérifier pour chaque sommets
 		{
-			System.out.print(this.liste_sommets.get(j).getNom());						//Afficher le nom du sommet en début de ligne
+			gbcMain.gridy += 1;
+			gbcMain.gridx = 0;
+			
+			JLabel Sommet = new JLabel(this.liste_sommets.get(j).getNom());				//Afficher le nom du sommet en début de ligne
+			Sommet.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+			matriceAdjacencePanel.add(Sommet,gbcMain);
 			
 			for(int k = 0 ; k < this.liste_sommets.size() ; k++)						// Vérifier s'il y a un arc vers chacun des autres sommets
 			{
 				if(this.liste_sommets.get(j).get_nb_arc() == 0)							// Si aucun arc n'a pour départ le sommet étudier
 				{
-					System.out.print("\tF");											// Se décaler et afficher X
+					gbcMain.gridx += 1;
+					
+					JLabel VF = new JLabel("F");										//Afficher F
+					VF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					VF.setHorizontalAlignment(SwingConstants.CENTER);
+					matriceAdjacencePanel.add(VF,gbcMain);
 				}
 				else
 				{
@@ -268,36 +308,87 @@ public class Graphe
 					}
 					if(condition == 1)
 					{
-						System.out.print("\tV");
+						gbcMain.gridx += 1;
+						
+						JLabel VF = new JLabel("V");										//Afficher V
+						VF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						VF.setHorizontalAlignment(SwingConstants.CENTER);
+						matriceAdjacencePanel.add(VF,gbcMain);
 					}
 					else
 					{
-						System.out.print("\tF");
+						gbcMain.gridx += 1;
+						
+						JLabel VF = new JLabel("F");										//Afficher F
+						VF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						VF.setHorizontalAlignment(SwingConstants.CENTER);
+						matriceAdjacencePanel.add(VF,gbcMain);
 					}
 				}
 			}
-			System.out.print("\n");
 		}
+		
+		return globalPanel;
 	}
 	
-	public void matrice_valeur()
+	public JPanel matrice_valeur()
 	{
-		System.out.println("\nMatrice des valeurs\n");
+		JPanel globalPanel = new JPanel();
+		globalPanel.setLayout(new BorderLayout(0,0));
+		
+		
+		JLabel infos_graphe = new JLabel("Matrice des valeurs");
+		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
+		infos_graphe.setBorder(new EmptyBorder(90, 0, 0, 0));
+		globalPanel.add(infos_graphe, BorderLayout.NORTH);
+		
+		
+		JPanel matriceAdjacencePanel = new JPanel();
+		globalPanel.add(matriceAdjacencePanel, BorderLayout.CENTER);
+		matriceAdjacencePanel.setLayout(new GridBagLayout());
+		
+		GridBagConstraints gbcMain = new GridBagConstraints();
+		gbcMain.gridx = 0;
+		gbcMain.gridy = 0;
+		gbcMain.fill = GridBagConstraints.HORIZONTAL;
+		gbcMain.insets = new Insets(10,10,10,10);
+		
+		
+		
 		
 		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
-		{ System.out.print("\t" + this.liste_sommets.get(i).getNom()); }
+		{
+			gbcMain.gridx += 1;
+			
+			JLabel Sommet = new JLabel(this.liste_sommets.get(i).getNom());
+			Sommet.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+			matriceAdjacencePanel.add(Sommet,gbcMain);
+		}
 		
-		System.out.print("\n");
+		
 		
 		for(int j = 0 ; j < this.liste_sommets.size() ; j++)							//Vérifier pour chaque sommets
 		{
-			System.out.print(this.liste_sommets.get(j).getNom());						//Afficher le nom du sommet en début de ligne
+			gbcMain.gridy += 1;
+			gbcMain.gridx = 0;
+			
+			JLabel Sommet = new JLabel(this.liste_sommets.get(j).getNom());				//Afficher le nom du sommet en début de ligne
+			Sommet.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+			matriceAdjacencePanel.add(Sommet,gbcMain);
 			
 			for(int k = 0 ; k < this.liste_sommets.size() ; k++)						// Vérifier s'il y a un arc vers chacun des autres sommets
 			{
 				if(this.liste_sommets.get(j).get_nb_arc() == 0)							// Si aucun arc n'a pour départ le sommet étudier
 				{
-					System.out.print("\t*");											// Se décaler et afficher X
+					gbcMain.gridx += 1;
+					
+					JLabel VF = new JLabel("*");										//Afficher F
+					VF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					VF.setHorizontalAlignment(SwingConstants.CENTER);
+					matriceAdjacencePanel.add(VF,gbcMain);
 				}
 				else
 				{
@@ -313,16 +404,45 @@ public class Graphe
 					}
 					if(condition == 1)
 					{
-						System.out.print("\t" + this.liste_sommets.get(j).getArc(position).getValeur());
+						gbcMain.gridx += 1;
+						
+
+						JLabel VF = new JLabel(Integer.toString(this.liste_sommets.get(j).getArc(position).getValeur()));							//Afficher le nom du sommet
+						VF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						VF.setHorizontalAlignment(SwingConstants.CENTER);
+						matriceAdjacencePanel.add(VF,gbcMain);
+							
 					}
 					else
 					{
-						System.out.print("\t*");
+						gbcMain.gridx += 1;
+						
+						JLabel VF = new JLabel("*");										//Afficher F
+						VF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						VF.setHorizontalAlignment(SwingConstants.CENTER);
+						matriceAdjacencePanel.add(VF,gbcMain);
 					}
 				}
 			}
-			System.out.print("\n");
 		}
+		
+		return globalPanel;
+	}
+	
+	public JPanel matrices()
+	{
+		JPanel globalPanel = new JPanel();
+		globalPanel.setLayout(new BorderLayout(0,0));
+		
+		JPanel matriceAdjacencePanel = matrice_adjacence();
+		matriceAdjacencePanel.setBorder(new EmptyBorder(0, 50, 0, 0));
+		globalPanel.add(matriceAdjacencePanel, BorderLayout.WEST);
+		
+		JPanel matriceValeurPanel = matrice_valeur();
+		matriceValeurPanel.setBorder(new EmptyBorder(0, 0, 0, 50));
+		globalPanel.add(matriceValeurPanel, BorderLayout.EAST);
+		
+		return globalPanel;
 	}
 	
 	public boolean detection_circuit()
@@ -851,7 +971,7 @@ public class Graphe
 		JFrame frame_graphe = new JFrame();
 		
 		frame_graphe.setTitle(nom_graphe);			
-		frame_graphe.setPreferredSize(new Dimension(800, 600));				
+		frame_graphe.setPreferredSize(new Dimension(1200, 1000));				
 		frame_graphe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		frame_graphe.setResizable(false);
 		
@@ -922,6 +1042,18 @@ public class Graphe
 		gbcMain.gridx = 1;
 		JButton matriceButton = new JButton("Matrices");
 		bottomPanel.add(matriceButton,gbcMain);
+		matriceButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				/*JPanel centerPanel = matrice_adjacence();*/
+				JPanel centerPanel = matrices();
+				mainPanel.add(centerPanel, BorderLayout.CENTER);
+				frame_graphe.setContentPane(mainPanel);
+				frame_graphe.pack();
+			}
+		});
 		
 		gbcMain.gridx = 2;
 		JButton circuitButton = new JButton("Détéction circuit");
