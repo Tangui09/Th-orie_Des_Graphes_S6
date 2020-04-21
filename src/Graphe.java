@@ -693,7 +693,7 @@ public class Graphe
 		gbcMain.fill = GridBagConstraints.HORIZONTAL;
 		gbcMain.insets = new Insets(3,10,3,10);
 		
-		JPanel test_circuit = detection_circuit();
+		detection_circuit();
 		
 		if(isCircuit() == true)
 		{
