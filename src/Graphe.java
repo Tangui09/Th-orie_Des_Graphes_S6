@@ -680,27 +680,37 @@ public class Graphe
 		return globalPanel;
 	}
 	
-	public void verifier_ordonnancement()
+	public JPanel verifier_ordonnancement()
 	{
-		if(isVerif_circuit() == false)
+		
+		JPanel ordonnancementPanel = new JPanel();
+		ordonnancementPanel.setLayout(new GridBagLayout());
+		ordonnancementPanel.setBorder(new EmptyBorder(30, 0, 30, 0));
+		
+		GridBagConstraints gbcMain = new GridBagConstraints();
+		gbcMain.gridx = 0;
+		gbcMain.gridy = 0;
+		gbcMain.fill = GridBagConstraints.HORIZONTAL;
+		gbcMain.insets = new Insets(3,10,3,10);
+		
+		JPanel test_circuit = detection_circuit();
+		
+		if(isCircuit() == true)
 		{
-			this.detection_circuit();
-			if(this.circuit == true)
-			{
-				System.out.println("Il y a un circuit ! Ce n'est donc pas un graphe d'ordonnancement !");
-				return;
-			}
+			JLabel circuit = new JLabel("Il y a un circuit ! Ce n'est donc pas un graphe d'ordonnancement !");
+			circuit.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			circuit.setHorizontalAlignment(SwingConstants.CENTER);
+			ordonnancementPanel.add(circuit,gbcMain);
+			return ordonnancementPanel;
 		}
 		else
 		{
-			if(this.circuit == true)
-			{
-				System.out.println("Il y a un circuit ! Ce n'est donc pas un graphe d'ordonnancement !");
-				return;
-			}
+			JLabel circuit = new JLabel("Il n'y a pas de circuit ! La condition de l'absence de circuit est bien vérifiée !");
+			circuit.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			circuit.setHorizontalAlignment(SwingConstants.CENTER);
+			ordonnancementPanel.add(circuit,gbcMain);
 		}
-		
-		System.out.println("La condition de l'absence de circuit est bien vérifiée !");
+		gbcMain.gridy += 1;
 		
 		
 		
@@ -735,32 +745,44 @@ public class Graphe
 			}
 		}
 		
-		if(rang_0 == 1)																										// Si on a qu'un élément de rang 0
+		if(rang_0 == 1)																			// Si on a qu'un élément de rang 0
 		{
-			System.out.println("Un seul point d'entrée : " + this.liste_sommets.get(position_rang_0).getNom());
+			JLabel entree = new JLabel("Un seul point d'entrée : " + this.liste_sommets.get(position_rang_0).getNom());
+			entree.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			entree.setHorizontalAlignment(SwingConstants.CENTER);
+			ordonnancementPanel.add(entree,gbcMain);
 			this.liste_sommets.get(position_rang_0).setPoint_entree(true);
 		}
 		else
 		{
-			System.out.println("Il n'y a pas qu'un seul point d'entrée !");
-			System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
-			return;																											// On arrête de vérifier parce que ce n'est pas un graphe d'odonnancement
+			JLabel entree = new JLabel("Il n'y a pas qu'un seul point d'entrée ! Ce n'est donc pas un graphe d'ordonnancement !");
+			entree.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			entree.setHorizontalAlignment(SwingConstants.CENTER);
+			ordonnancementPanel.add(entree,gbcMain);
+			return ordonnancementPanel;																			// On arrête de vérifier parce que ce n'est pas un graphe d'odonnancement
 		}
 		
-		if(rang_max == 1)																									// Si on a un seul élément de rang max
+		gbcMain.gridy += 1;
+		
+		if(rang_max == 1)																						// Si on a un seul élément de rang max
 		{
-			System.out.println("Un seul point de sortie : " + this.liste_sommets.get(position_rang_max).getNom());
+			JLabel sortie = new JLabel("Un seul point de sortie : " + this.liste_sommets.get(position_rang_max).getNom());
+			sortie.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			sortie.setHorizontalAlignment(SwingConstants.CENTER);
+			ordonnancementPanel.add(sortie,gbcMain);
 			this.liste_sommets.get(position_rang_max).setPoint_sortie(true);
 		}
 		else
 		{
-			System.out.println("Il n'y a pas qu'un seul point de sortie !");
-			System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
-			return;																											// On arrête de vérifier parce que ce n'est pas un graphe d'odonnancement
+			JLabel sortie = new JLabel("Il n'y a pas qu'un seul point de sortie ! Ce n'est donc pas un graphe d'ordonnancement !");
+			sortie.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			sortie.setHorizontalAlignment(SwingConstants.CENTER);
+			ordonnancementPanel.add(sortie,gbcMain);
+			return ordonnancementPanel;																			// On arrête de vérifier parce que ce n'est pas un graphe d'odonnancement
 		}
 		
 		
-		
+		gbcMain.gridy += 1;
 		
 		
 		
@@ -774,34 +796,59 @@ public class Graphe
 				{
 					if(liste_sommets.get(j).getArc(nb_arc).getValeur() != valeur_arc)		// Si la valeur de l'arc étudié est différente de celle enregistrée
 					{
-						System.out.println("Pas de valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet !");
-						System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
-						return;																				// On arrête de vérifier
+						JLabel arc1 = new JLabel("Pas de valeurs identiques pour tous les arcs incidents vers l’extérieur à un sommet !");
+						arc1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+						arc1.setHorizontalAlignment(SwingConstants.CENTER);
+						ordonnancementPanel.add(arc1,gbcMain);
+						
+						gbcMain.gridy += 1;
+						
+						JLabel arc2 = new JLabel("Ce n'est donc pas un graphe d'ordonnancement !");
+						arc2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+						arc2.setHorizontalAlignment(SwingConstants.CENTER);
+						ordonnancementPanel.add(arc2,gbcMain);
+						return ordonnancementPanel;																				// On arrête de vérifier
 					}
 				}
 			}
 		}
-		System.out.println("On a des valeurs identiques pour tous les arcs incidents vers l’extérieur d'un sommet !");
+		
+		JLabel arc = new JLabel("On a des valeurs identiques pour tous les arcs incidents vers l’extérieur d'un sommet !");
+		arc.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		arc.setHorizontalAlignment(SwingConstants.CENTER);
+		ordonnancementPanel.add(arc,gbcMain);
+		
+		gbcMain.gridy += 1;
 		
 		
 		
 		
 		
-		
-		
-		for(int verif_rang_0 = 0 ; verif_rang_0 < this.liste_sommets.get(verif_rang_0).get_nb_arc() ; verif_rang_0++)			// Véridions si tous les arcs partant du point d'entrée sont à valeur nulle
+		for(int verif_rang_0 = 0 ; verif_rang_0 < this.liste_sommets.get(position_rang_0).get_nb_arc() ; verif_rang_0++)			// Véridions si tous les arcs partant du point d'entrée sont à valeur nulle
 		{
-			if(this.liste_sommets.get(verif_rang_0).getArc(verif_rang_0).getValeur() != 0)
+			if(this.liste_sommets.get(position_rang_0).getArc(verif_rang_0).getValeur() != 0)
 			{
-				System.out.println("Pas de valeurs nulles pour tous les arcs incidents vers l’extérieur au point d’entrée !");
-				System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
-				return;	
+				JLabel valeur1 = new JLabel("Pas de valeurs nulle pour tous les arcs incidents vers l’extérieur au point d'entrée !");
+				valeur1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				valeur1.setHorizontalAlignment(SwingConstants.CENTER);
+				ordonnancementPanel.add(valeur1,gbcMain);
+				
+				gbcMain.gridy += 1;
+				
+				JLabel valeur2 = new JLabel("Ce n'est donc pas un graphe d'ordonnancement !");
+				valeur2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				valeur2.setHorizontalAlignment(SwingConstants.CENTER);
+				ordonnancementPanel.add(valeur2,gbcMain);
+				return ordonnancementPanel;		
 			}
 		}
-		System.out.println("Valeurs nulles pour tous les arcs incidents vers l’extérieur du point d’entrée !");
+
+		JLabel valeur = new JLabel("Valeurs nulles pour tous les arcs incidents vers l’extérieur au point d’entrée !");
+		valeur.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		valeur.setHorizontalAlignment(SwingConstants.CENTER);
+		ordonnancementPanel.add(valeur,gbcMain);
 		
-		
-		
+		gbcMain.gridy += 1;
 		
 		
 		
@@ -814,16 +861,36 @@ public class Graphe
 				{
 					if(this.liste_sommets.get(verif_valeur_negative).getArc(k).getValeur() < 0)
 					{
-						System.out.println("Il y a au moins un arc à valeur négative !");
-						System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
-						return;	
+						JLabel arc_neg1 = new JLabel("Il y a au moins un arc à valeur négative !");
+						arc_neg1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+						arc_neg1.setHorizontalAlignment(SwingConstants.CENTER);
+						ordonnancementPanel.add(arc_neg1,gbcMain);
+						
+						gbcMain.gridy += 1;
+						
+						JLabel arc_neg2 = new JLabel("Ce n'est donc pas un graphe d'ordonnancement !");
+						arc_neg2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+						arc_neg2.setHorizontalAlignment(SwingConstants.CENTER);
+						ordonnancementPanel.add(arc_neg2,gbcMain);
+						return ordonnancementPanel;	
+						
 					}
 				}
 			}
 		}
-		System.out.println("Valeurs positives ou nulles pour tous les arcs !");
 		
-		System.out.println("\nToutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !\n\n");
+		JLabel arc_pos = new JLabel("Valeurs positives ou nulles pour tous les arcs !");
+		arc_pos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		arc_pos.setHorizontalAlignment(SwingConstants.CENTER);
+		ordonnancementPanel.add(arc_pos,gbcMain);
+		
+		gbcMain.gridy += 1;
+		
+		JLabel arc_neg2 = new JLabel("Toutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !");
+		arc_neg2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		arc_neg2.setHorizontalAlignment(SwingConstants.CENTER);
+		ordonnancementPanel.add(arc_neg2,gbcMain);
+		return ordonnancementPanel;
 	}
 
 	public void dates_au_plus_tot()
@@ -1194,6 +1261,17 @@ public class Graphe
 		gbcMain.gridx = 4;
 		JButton ordonnancementButton = new JButton("Ordonnancement");
 		bottomPanel.add(ordonnancementButton,gbcMain);
+		ordonnancementButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				JPanel centerPanel = verifier_ordonnancement();
+				mainPanel.add(centerPanel, BorderLayout.CENTER);
+				frame_graphe.setContentPane(mainPanel);
+				frame_graphe.pack();
+			}
+		});
 		
 		gbcMain.gridx = 5;
 		JButton dateButton = new JButton("Dates et Marges");
@@ -1222,7 +1300,6 @@ public class Graphe
 		frame_graphe.setLocationRelativeTo(null);			//Center the frame on the screen
 		frame_graphe.setVisible(true);						//Set the frame visible
 	}
-	
 	
 	/// AFFICHAGE ///
 }
