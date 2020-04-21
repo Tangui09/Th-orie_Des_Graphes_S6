@@ -87,13 +87,13 @@ public class Graphe
 	
 	/// GETTER AND SETTER ///
 
-	public int get_nb_sommets() 														// Récupérer le nombre de sommet du graphe
+	public int get_nb_sommets()
 	{ return nb_sommets; }
 
 	public void set_nb_sommets(int nb_sommets) 
 	{ this.nb_sommets = nb_sommets; }
 	
-	public int get_nb_arc()																// Récupérer le nombre d'arc du graphe
+	public int get_nb_arc()
 	{ return nb_arc; }
 	
 	public void set_nb_arc(int nb_arc) 
@@ -469,15 +469,15 @@ public class Graphe
 		while(entree_restante == true)
 		{
 			if(gbcMain.gridy > 35)
-			{ x_save = this.get_nb_sommets() + 1; gbcMain.gridx = x_save; gbcMain.gridy = 0;}
-			else if(x_save == 0)
-			{ gbcMain.gridx = 0; }
+			{ x_save = this.get_nb_sommets(); gbcMain.gridx = x_save; gbcMain.gridy = 0;}
+			else
+			{ gbcMain.gridx = x_save; }
 			
 			gbcMain.gridy += 1;
 			liste_sommets_hors_circuit.addAll(liste_sommets_circuit);
 			
 			JLabel pointEntree = new JLabel("Points d'entrée :");
-			pointEntree.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			pointEntree.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			pointEntree.setHorizontalAlignment(SwingConstants.CENTER);
 			circuitPanel.add(pointEntree,gbcMain);
 			
@@ -509,7 +509,7 @@ public class Graphe
 				for(int nb_sommet = 0 ; nb_sommet < liste_sommets_hors_circuit.size() ; nb_sommet++)
 				{
 					JLabel sommetEntree = new JLabel(liste_sommets_hors_circuit.get(nb_sommet).getNom());					// Afficher les noms des sommets
-					sommetEntree.setFont(new Font("Tahoma", Font.PLAIN, 10));
+					sommetEntree.setFont(new Font("Tahoma", Font.PLAIN, 12));
 					sommetEntree.setHorizontalAlignment(SwingConstants.CENTER);
 					circuitPanel.add(sommetEntree,gbcMain);
 					
@@ -537,14 +537,14 @@ public class Graphe
 				
 				
 				JLabel suppression = new JLabel("Suppression des points d'entrée !");					// Afficher les noms des sommets
-				suppression.setFont(new Font("Tahoma", Font.PLAIN, 10));
+				suppression.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				suppression.setHorizontalAlignment(SwingConstants.CENTER);
 				circuitPanel.add(suppression,gbcMain);
 				
 				gbcMain.gridy += 1;
 				
 				JLabel prevision = new JLabel("Points restant : ");									// Prévision d'affichage
-				prevision.setFont(new Font("Tahoma", Font.PLAIN, 10));
+				prevision.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				prevision.setHorizontalAlignment(SwingConstants.CENTER);
 				circuitPanel.add(prevision,gbcMain);
 				
@@ -556,30 +556,31 @@ public class Graphe
 					for(int restant = 0 ; restant < liste_sommets_circuit.size() ; restant++)
 					{
 						JLabel pointRestant = new JLabel(liste_sommets_circuit.get(restant).getNom());									// Prévision d'affichage
-						pointRestant.setFont(new Font("Tahoma", Font.PLAIN, 10));
+						pointRestant.setFont(new Font("Tahoma", Font.PLAIN, 12));
 						pointRestant.setHorizontalAlignment(SwingConstants.CENTER);
 						circuitPanel.add(pointRestant,gbcMain);
 						gbcMain.gridx += 1;
 					}
-					gbcMain.gridx = x_save + 2;
+					gbcMain.gridx = x_save + 1;
 					gbcMain.gridy += 1;
 				}
 				else
 				{													
 					JLabel pointRestant = new JLabel("Aucun !");									// Il n'y a plus de points restants
-					pointRestant.setFont(new Font("Tahoma", Font.PLAIN, 10));
+					pointRestant.setFont(new Font("Tahoma", Font.PLAIN, 12));
 					pointRestant.setHorizontalAlignment(SwingConstants.CENTER);
 					circuitPanel.add(pointRestant,gbcMain);
-					gbcMain.gridx = x_save + 2;
+					gbcMain.gridx = x_save + 1;
 					gbcMain.gridy += 1;
 				}
 				
-				liste_sommets_hors_circuit.clear();				// Reset la liste des circuits à retirer
+				liste_sommets_hors_circuit.clear();												// Reset la liste des circuits à retirer
 			}
-			else																							// S'il n'y a plus de sommets à retirer
+			else																				// S'il n'y a plus de sommets à retirer
 			{
+				gbcMain.gridx = x_save + 1;
 				JLabel pointRestant = new JLabel("Aucun !");									// Il n'y a plus de points restants
-				pointRestant.setFont(new Font("Tahoma", Font.PLAIN, 10));
+				pointRestant.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				pointRestant.setHorizontalAlignment(SwingConstants.CENTER);
 				circuitPanel.add(pointRestant,gbcMain);
 				gbcMain.gridx = x_save;
@@ -588,7 +589,7 @@ public class Graphe
 				if(liste_sommets_circuit.size() == 0)														// Vérifier s'il reste des sommets dits "hors-circuits" ou non
 				{
 					JLabel presenceCircuit = new JLabel("Il n'y a pas de circuit dans ce graphe !");
-					presenceCircuit.setFont(new Font("Tahoma", Font.PLAIN, 10));
+					presenceCircuit.setFont(new Font("Tahoma", Font.PLAIN, 12));
 					presenceCircuit.setHorizontalAlignment(SwingConstants.CENTER);
 					circuitPanel.add(presenceCircuit,gbcMain);
 					this.setCircuit(false);
@@ -598,7 +599,7 @@ public class Graphe
 				else
 				{
 					JLabel presenceCircuit = new JLabel("Attention ! Il y a un circuit dans ce graphe !");
-					presenceCircuit.setFont(new Font("Tahoma", Font.PLAIN, 10));
+					presenceCircuit.setFont(new Font("Tahoma", Font.PLAIN, 12));
 					presenceCircuit.setHorizontalAlignment(SwingConstants.CENTER);
 					circuitPanel.add(presenceCircuit,gbcMain);
 					this.setCircuit(true);
@@ -611,30 +612,72 @@ public class Graphe
 		return circuitPanel;
 	}
 	
-	public void calcul_rang()
-	{	
+	public JPanel calcul_rang()
+	{
+		JPanel globalPanel = new JPanel();
+		globalPanel.setLayout(new BorderLayout(0,0));
+		
+		
+		JPanel isCircuit = detection_circuit();
+		globalPanel.add(isCircuit, BorderLayout.CENTER);
+		
+		
+		JPanel rangPanel = new JPanel();
+		rangPanel.setLayout(new GridBagLayout());
+		rangPanel.setBorder(new EmptyBorder(5, 0, 30, 0));
+		globalPanel.add(rangPanel, BorderLayout.SOUTH);
+		
+		GridBagConstraints gbcMain = new GridBagConstraints();
+		gbcMain.gridx = 0;
+		gbcMain.gridy = 0;
+		gbcMain.fill = GridBagConstraints.HORIZONTAL;
+		gbcMain.insets = new Insets(3,10,3,10);
+		
+		
 		if(this.isCircuit() == true)																							// S'il y a un circuit, pas de calcul de rang possible
 		{
-			System.out.println("Calcul du rang impossible car il y a un circuit dans le graphe !");
+			JLabel text = new JLabel("Calcul du rang impossible car il y a un circuit dans le graphe !");
+			text.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			text.setHorizontalAlignment(SwingConstants.CENTER);
+			rangPanel.add(text,gbcMain);
+			
 		}
 		else
 		{
-			System.out.print("Sommet");
+			JLabel textSommet = new JLabel("Sommet");
+			textSommet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			textSommet.setHorizontalAlignment(SwingConstants.CENTER);
+			rangPanel.add(textSommet,gbcMain);
+			
 			for(int i = 0 ; i < this.liste_sommets.size() ; i++)
 			{
-				System.out.print("\t" + this.liste_sommets.get(i).getNom());							// Afficher les sommets dans l'ordre
+				gbcMain.gridx += 1;
+				
+				JLabel Sommet = new JLabel(this.liste_sommets.get(i).getNom());							// Afficher les sommets dans l'ordre
+				Sommet.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+				rangPanel.add(Sommet,gbcMain);					
 			}
 			
-			System.out.print("\n");
+			gbcMain.gridx = 0;
+			gbcMain.gridy = 1;
 			
-			System.out.print("Rang");
-			for(int i = 0 ; i < this.liste_sommets.size() ; i++)										// Afficher les rangs des sommets correspondant
+			JLabel textRang = new JLabel("Rang");
+			textRang.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			textRang.setHorizontalAlignment(SwingConstants.CENTER);
+			rangPanel.add(textRang,gbcMain);
+			
+			for(int i = 0 ; i < this.liste_sommets.size() ; i++)										
 			{
-				System.out.print("\t" + this.liste_sommets.get(i).getRang());
+				gbcMain.gridx += 1;
+				
+				JLabel Sommet = new JLabel(Integer.toString(this.liste_sommets.get(i).getRang()));						// Afficher les rangs des sommets correspondant
+				Sommet.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+				rangPanel.add(Sommet,gbcMain);	
 			}
 		}
-		
-		System.out.print("\n\n\n");
+		return globalPanel;
 	}
 	
 	public void verifier_ordonnancement()
@@ -1136,6 +1179,17 @@ public class Graphe
 		gbcMain.gridx = 3;
 		JButton rangButton = new JButton("Calcul Rang");
 		bottomPanel.add(rangButton,gbcMain);
+		rangButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				JPanel centerPanel = calcul_rang();
+				mainPanel.add(centerPanel, BorderLayout.CENTER);
+				frame_graphe.setContentPane(mainPanel);
+				frame_graphe.pack();
+			}
+		});
 		
 		gbcMain.gridx = 4;
 		JButton ordonnancementButton = new JButton("Ordonnancement");
