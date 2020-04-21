@@ -1080,7 +1080,7 @@ public class Graphe
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				new MainGraphe();
+				new ChoixGraphe();
 				frame_graphe.dispose();
 			}
 		});
