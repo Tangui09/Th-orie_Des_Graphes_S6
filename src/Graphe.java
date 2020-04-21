@@ -26,6 +26,9 @@ public class Graphe
 	private boolean verif_circuit = false;
 	private boolean circuit;
 	
+	private boolean verif_ordonnancement = false;
+	private boolean ordonnancement = false;
+	
 	private int date_au_plus_tot = -1;
 	private int date_au_plus_tard = -1;
 	private int marge;
@@ -128,6 +131,18 @@ public class Graphe
 
 	public void setMarge(int marge)
 	{ this.marge = marge; }
+	
+	public boolean isVerif_ordonnancement() 
+	{ return verif_ordonnancement; }
+	
+	public void setVerif_ordonnancement(boolean verif_ordonnancement) 
+	{ this.verif_ordonnancement = verif_ordonnancement; }
+	
+	public boolean isOrdonnancement() 
+	{ return ordonnancement; }
+	
+	public void setOrdonnancement(boolean ordonnancement) 
+	{ this.ordonnancement = ordonnancement; }
 	
 	/// GETTER AND SETTER ///
 	
@@ -682,6 +697,7 @@ public class Graphe
 	
 	public JPanel verifier_ordonnancement()
 	{
+		setVerif_ordonnancement(true);
 		
 		JPanel ordonnancementPanel = new JPanel();
 		ordonnancementPanel.setLayout(new GridBagLayout());
@@ -1132,6 +1148,19 @@ public class Graphe
 		}
 	}
 	
+	public void calendrier()
+	{
+		verifier_ordonnancement();
+		
+		if(isOrdonnancement() == false)
+		{
+			System.out.println("Ce n'est pas un graphe d'ordonnancement !");
+			return;
+		}
+		
+		
+	}
+	
 	/// METHODES ///
 	
 	
@@ -1300,6 +1329,8 @@ public class Graphe
 		frame_graphe.setLocationRelativeTo(null);			//Center the frame on the screen
 		frame_graphe.setVisible(true);						//Set the frame visible
 	}
+
 	
+
 	/// AFFICHAGE ///
 }
