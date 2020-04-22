@@ -1031,40 +1031,36 @@ public class Graphe
 			{
 				if(this.liste_sommets.get(j).getRang() == rang)												// Pour les sommets que l'on peut étudier, soit ceux du rang précédent
 				{																					
-					ArrayList<Sommet> liste_sommet_predecesseur = new ArrayList<Sommet>();
+					ArrayList<Sommet> liste_sommet_successeur = new ArrayList<Sommet>();
 					
-					for(int predecesseur = 0 ; predecesseur <this.liste_sommets.size() ; predecesseur++)	// Cherchons les predecesseurs
+					for(int successeur = 0 ; successeur <this.liste_sommets.size() ; successeur++)	// Cherchons les predecesseurs
 					{
-							for(int arc_successeur = 0; arc_successeur < this.liste_sommets.get(predecesseur).get_nb_arc() ; arc_successeur++)		// On vérifie tous les arcs
+						if(this.liste_sommets.get(successeur).get_nb_arc() > 0) 
+						{
+							for(int arc_successeur = 0; arc_successeur < this.liste_sommets.get(successeur).get_nb_arc() ; arc_successeur++)		// On vérifie tous les arcs
 							{
-								if(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur().equals(this.liste_sommets.get(j).getNom()))		// on ajoute les bons arcs
+								if(this.liste_sommets.get(successeur).getArc(arc_successeur).getSuccesseur().equals(this.liste_sommets.get(j).getNom()))		// on ajoute les bons arcs
 								{																																// à la liste
-									Sommet nouveau_sommet = new Sommet(this.liste_sommets.get(predecesseur).getNom());
-									nouveau_sommet.nouvel_arc(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur(), this.liste_sommets.get(predecesseur).getArc(arc_successeur).getValeur());
-									nouveau_sommet.setDate_au_plus_tard_sommet(this.liste_sommets.get(position_rang_max).getDate_au_plus_tard_sommet());	// Valeur max, pour avoir un point de départ pour comparer les dates entre elles
-									liste_sommet_predecesseur.add(nouveau_sommet);
+									Sommet nouveau_sommet = new Sommet(this.liste_sommets.get(successeur).getNom());
+									nouveau_sommet.nouvel_arc(this.liste_sommets.get(successeur).getArc(arc_successeur).getSuccesseur(), this.liste_sommets.get(successeur).getArc(arc_successeur).getValeur());
+									nouveau_sommet.setDate_au_plus_tard_sommet(this.liste_sommets.get(successeur).getDate_au_plus_tard_sommet());
+									liste_sommet_successeur.add(nouveau_sommet);
 								}
 							}
+						}	
 					}
 					
+					int date_tard = this.liste_sommets.get(position_rang_max).getDate_au_plus_tard_sommet();
 					
-					
-					for(int date = 0 ; date < liste_sommet_predecesseur.size() ; date++)			// Vérifions pour tous les arcs lequel est le plus court
+					for(int date = 0 ; date < liste_sommet_successeur.size() ; date++)			// Vérifions pour tous les arcs lequel est le plus court
 					{
-						if(this.liste_sommets.get(j).getDate_au_plus_tard_sommet() - liste_sommet_predecesseur.get(date).getArc(0).getValeur() < liste_sommet_predecesseur.get(date).getDate_au_plus_tard_sommet())
+						if(liste_sommet_successeur.get(date).getDate_au_plus_tard_sommet() - liste_sommet_successeur.get(date).getArc(0).getValeur() < date_tard)
 						{
-							liste_sommet_predecesseur.get(date).setDate_au_plus_tard_sommet(this.liste_sommets.get(j).getDate_au_plus_tard_sommet() - liste_sommet_predecesseur.get(date).getArc(0).getValeur());
-						}
-					}
-					
-					for(int i1 = 0 ; i1 < liste_sommet_predecesseur.size() ; i1++)			// Pour chaque élément étudier précedemment
-					{
-						for(int i2 = 0 ; i2 < this.liste_sommets.size() ; i2++)				
-						{
-							if(this.liste_sommets.get(i2).getNom().equals(liste_sommet_predecesseur.get(i1).getNom()))		// Cherchons l'élément correspondant dans la liste des sommets
-							{
-								this.liste_sommets.get(i2).setDate_au_plus_tard_sommet(liste_sommet_predecesseur.get(i1).getDate_au_plus_tard_sommet());	// Modifions la date au plus tard
-							}
+							System.out.println(this.liste_sommets.get(j).getNom() + " " + date_tard + " ");
+							System.out.println(liste_sommet_successeur.get(date).getDate_au_plus_tard_sommet()  +" "+ liste_sommet_successeur.get(date).getArc(0).getValeur() + "\n");
+							liste_sommet_successeur.get(date).setDate_au_plus_tard_sommet(this.liste_sommets.get(j).getDate_au_plus_tard_sommet() - liste_sommet_successeur.get(date).getArc(0).getValeur());
+							date_tard = liste_sommet_successeur.get(date).getDate_au_plus_tard_sommet() - liste_sommet_successeur.get(date).getArc(0).getValeur();
+							this.liste_sommets.get(j).setDate_au_plus_tard_sommet(date_tard);
 						}
 					}
 				}
@@ -1190,7 +1186,7 @@ public class Graphe
 			
 			if(this.liste_sommets.get(i).isPoint_entree() == true)
 			{
-				JLabel Entree = new JLabel("Point d'entré");
+				JLabel Entree = new JLabel("Point d'entrée");
 				Entree.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				Entree.setHorizontalAlignment(SwingConstants.CENTER);
 				calendierPanel.add(Entree,gbcMain);
@@ -1238,7 +1234,6 @@ public class Graphe
 			MargaLibre.setHorizontalAlignment(SwingConstants.CENTER);
 			calendierPanel.add(MargaLibre,gbcMain);
 		}
-		
 		
 		return calendierPanel;
 	}
@@ -1422,8 +1417,6 @@ public class Graphe
 		frame_graphe.setLocationRelativeTo(null);			//Center the frame on the screen
 		frame_graphe.setVisible(true);						//Set the frame visible
 	}
-
-	
 
 	/// AFFICHAGE ///
 }
