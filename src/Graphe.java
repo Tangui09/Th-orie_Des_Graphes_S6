@@ -902,10 +902,13 @@ public class Graphe
 		
 		gbcMain.gridy += 1;
 		
-		JLabel arc_neg2 = new JLabel("Toutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !");
-		arc_neg2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		arc_neg2.setHorizontalAlignment(SwingConstants.CENTER);
-		ordonnancementPanel.add(arc_neg2,gbcMain);
+		JLabel condition = new JLabel("Toutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !");
+		condition.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		condition.setHorizontalAlignment(SwingConstants.CENTER);
+		ordonnancementPanel.add(condition,gbcMain);
+		
+		setOrdonnancement(true);
+		
 		return ordonnancementPanel;
 	}
 
@@ -922,7 +925,6 @@ public class Graphe
 		
 		if(condition == 0)
 		{
-			System.out.println("\nVous n'avez pas vérifiez si c'était un graphe d'ordonnancement !");
 			return;
 		}
 		
@@ -984,12 +986,6 @@ public class Graphe
 			}
 			
 		}
-		
-		System.out.println("\nDates au plus tôt :\n");
-		for(int test = 0 ; test < this.liste_sommets.size() ; test++)
-		{
-			System.out.println("Sommet " + this.liste_sommets.get(test).getNom() + " : " + this.liste_sommets.get(test).getDate_au_plus_tot_sommet());
-		}
 	}
 	
 	public void dates_au_plus_tard()
@@ -1005,7 +1001,6 @@ public class Graphe
 		
 		if(condition == 0)
 		{
-			System.out.println("\nVous n'avez pas vérifiez si c'était un graphe d'ordonnancement !");
 			return;
 		}
 		
@@ -1076,22 +1071,13 @@ public class Graphe
 			}
 			
 		}
-		
-		System.out.println("\nDates au plus tard :\n");
-		for(int test = 0 ; test < this.liste_sommets.size() ; test++)
-		{
-			System.out.println("Sommet " + this.liste_sommets.get(test).getNom() + " : " + this.liste_sommets.get(test).getDate_au_plus_tard_sommet());
-		}
-		System.out.println("\n");
 	}
 
 	public void marges_totales()
 	{		
-		System.out.println("\nCalcul des marges totales : \n");
 		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
 		{
 			this.liste_sommets.get(i).setMarge_totale(this.liste_sommets.get(i).getDate_au_plus_tard_sommet() - this.liste_sommets.get(i).getDate_au_plus_tot_sommet());
-			System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : " + this.liste_sommets.get(i).getMarge_totale());
 		}
 	}
 	
@@ -1129,36 +1115,132 @@ public class Graphe
 				this.liste_sommets.get(i).setMarge_libre(marge_libre_sommet);
 			}
 		}
-		
-		System.out.println("\nCalcul des marges libres : \n");
-		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
-		{
-			if(this.liste_sommets.get(i).isPoint_entree() == true)
-			{
-				System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : Point d'entrée");
-			}
-			else if(this.liste_sommets.get(i).isPoint_sortie() == true)
-			{
-				System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : Point de sortie");
-			}
-			else
-			{
-				System.out.println("Sommet " + this.liste_sommets.get(i).getNom() + " : " + this.liste_sommets.get(i).getMarge_libre());
-			}
-		}
 	}
 	
-	public void calendrier()
+	public JPanel calendrier()
 	{
+		JPanel calendierPanel = new JPanel();
+		calendierPanel.setLayout(new GridBagLayout());
+		calendierPanel.setBorder(new EmptyBorder(30, 0, 30, 0));
+		
+		GridBagConstraints gbcMain = new GridBagConstraints();
+		gbcMain.gridx = 0;
+		gbcMain.gridy = 0;
+		gbcMain.fill = GridBagConstraints.HORIZONTAL;
+		gbcMain.insets = new Insets(3,10,3,10);
+		
 		verifier_ordonnancement();
 		
 		if(isOrdonnancement() == false)
 		{
-			System.out.println("Ce n'est pas un graphe d'ordonnancement !");
-			return;
+			JLabel isOrdonnancement = new JLabel("Ce n'est pas un graphe d'ordonnancement !");
+			isOrdonnancement.setFont(new Font("Tahoma", Font.PLAIN, 28));
+			isOrdonnancement.setHorizontalAlignment(SwingConstants.CENTER);
+			calendierPanel.add(isOrdonnancement,gbcMain);
+			return calendierPanel;
+		}
+		
+		dates_au_plus_tot();
+		dates_au_plus_tard();
+		marges_totales();
+		marges_libres();
+		
+		
+		gbcMain.gridx = 1;
+		
+		JLabel textSommet = new JLabel("Sommet");
+		textSommet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textSommet.setHorizontalAlignment(SwingConstants.CENTER);
+		calendierPanel.add(textSommet,gbcMain);
+		
+		gbcMain.gridx += 1;
+		
+		JLabel textPlusTot = new JLabel("Date au plus tôt");
+		textPlusTot.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textPlusTot.setHorizontalAlignment(SwingConstants.CENTER);
+		calendierPanel.add(textPlusTot,gbcMain);
+		
+		gbcMain.gridx += 1;
+		
+		JLabel textPlusTard = new JLabel("Date au plus tard");
+		textPlusTard.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textPlusTard.setHorizontalAlignment(SwingConstants.CENTER);
+		calendierPanel.add(textPlusTard,gbcMain);
+		
+		gbcMain.gridx += 1;
+		
+		JLabel textMargaTotale = new JLabel("Marge totale");
+		textMargaTotale.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textMargaTotale.setHorizontalAlignment(SwingConstants.CENTER);
+		calendierPanel.add(textMargaTotale,gbcMain);
+		
+		gbcMain.gridx += 1;
+		
+		JLabel textMargaLibre = new JLabel("Marge libre");
+		textMargaLibre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textMargaLibre.setHorizontalAlignment(SwingConstants.CENTER);
+		calendierPanel.add(textMargaLibre,gbcMain);
+		
+		
+
+		for(int i = 0; i < this.liste_sommets.size(); i++)
+		{
+			gbcMain.gridx = 0;
+			gbcMain.gridy += 1;
+			
+			if(this.liste_sommets.get(i).isPoint_entree() == true)
+			{
+				JLabel Entree = new JLabel("Point d'entré");
+				Entree.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				Entree.setHorizontalAlignment(SwingConstants.CENTER);
+				calendierPanel.add(Entree,gbcMain);
+			}
+			else if(this.liste_sommets.get(i).isPoint_sortie() == true)
+			{
+				JLabel Sortie = new JLabel("Point de sortie");
+				Sortie.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				Sortie.setHorizontalAlignment(SwingConstants.CENTER);
+				calendierPanel.add(Sortie,gbcMain);
+			}
+			
+			gbcMain.gridx = 1;
+			
+			JLabel Sommet = new JLabel(this.liste_sommets.get(i).getNom());
+			Sommet.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			Sommet.setHorizontalAlignment(SwingConstants.CENTER);
+			calendierPanel.add(Sommet,gbcMain);
+			
+			gbcMain.gridx += 1;
+			
+			JLabel PlusTot = new JLabel(Integer.toString(this.liste_sommets.get(i).getDate_au_plus_tot_sommet()));
+			PlusTot.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			PlusTot.setHorizontalAlignment(SwingConstants.CENTER);
+			calendierPanel.add(PlusTot,gbcMain);
+			
+			gbcMain.gridx += 1;
+			
+			JLabel PlusTard = new JLabel(Integer.toString(this.liste_sommets.get(i).getDate_au_plus_tard_sommet()));
+			PlusTard.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			PlusTard.setHorizontalAlignment(SwingConstants.CENTER);
+			calendierPanel.add(PlusTard,gbcMain);
+			
+			gbcMain.gridx += 1;
+			
+			JLabel MargaTotale = new JLabel(Integer.toString(this.liste_sommets.get(i).getMarge_totale()));
+			MargaTotale.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			MargaTotale.setHorizontalAlignment(SwingConstants.CENTER);
+			calendierPanel.add(MargaTotale,gbcMain);
+			
+			gbcMain.gridx += 1;
+			
+			JLabel MargaLibre = new JLabel(Integer.toString(this.liste_sommets.get(i).getMarge_libre()));
+			MargaLibre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			MargaLibre.setHorizontalAlignment(SwingConstants.CENTER);
+			calendierPanel.add(MargaLibre,gbcMain);
 		}
 		
 		
+		return calendierPanel;
 	}
 	
 	/// METHODES ///
@@ -1303,8 +1385,19 @@ public class Graphe
 		});
 		
 		gbcMain.gridx = 5;
-		JButton dateButton = new JButton("Dates et Marges");
-		bottomPanel.add(dateButton,gbcMain);
+		JButton calendrierButton = new JButton("Dates et Marges");
+		bottomPanel.add(calendrierButton,gbcMain);
+		calendrierButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				JPanel centerPanel = calendrier();
+				mainPanel.add(centerPanel, BorderLayout.CENTER);
+				frame_graphe.setContentPane(mainPanel);
+				frame_graphe.pack();
+			}
+		});
 		
 		gbcMain.gridy = 1;
 		gbcMain.gridx = 2;
