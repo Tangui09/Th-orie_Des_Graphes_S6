@@ -103,7 +103,7 @@ public class ChoixGraphe extends JFrame{
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					if((Integer.parseInt(numero.getText()) <= 14) && (Integer.parseInt(numero.getText()) >= 0))
+					if((Integer.parseInt(numero.getText()) <= 13) && (Integer.parseInt(numero.getText()) >= 0))
 					{
 						String nom_graphe = "L3-A9-Graphe" + numero.getText() + ".txt";
 						new Graphe(nom_graphe);
