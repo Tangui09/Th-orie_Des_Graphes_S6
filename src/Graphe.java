@@ -914,19 +914,9 @@ public class Graphe
 
 	public void dates_au_plus_tot()
 	{
-		int condition = 0;
-		for(int verif_condition = 0 ; verif_condition < this.liste_sommets.size() ; verif_condition++)
-		{
-			if(this.liste_sommets.get(verif_condition).isPoint_entree() == true)
-			{
-				condition = 1;
-			}
-		}
-		
-		if(condition == 0)
-		{
-			return;
-		}
+		verifier_ordonnancement();
+		if(this.ordonnancement == false)
+		{ return; }
 		
 		
 		
@@ -990,21 +980,9 @@ public class Graphe
 	
 	public void dates_au_plus_tard()
 	{
-		int condition = 0;
-		for(int verif_condition = 0 ; verif_condition < this.liste_sommets.size() ; verif_condition++)
-		{
-			if(this.liste_sommets.get(verif_condition).isPoint_sortie() == true)
-			{
-				condition = 1;
-			}
-		}
-		
-		if(condition == 0)
-		{
-			return;
-		}
-		
-		
+		verifier_ordonnancement();
+		if(this.ordonnancement == false)
+		{ return; }
 		
 		
 		int position_rang_0 = -1;
@@ -1053,6 +1031,10 @@ public class Graphe
 
 	public void marges_totales()
 	{		
+		verifier_ordonnancement();
+		if(this.ordonnancement == false)
+		{ return; }
+		
 		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
 		{
 			this.liste_sommets.get(i).setMarge_totale(this.liste_sommets.get(i).getDate_au_plus_tard_sommet() - this.liste_sommets.get(i).getDate_au_plus_tot_sommet());
@@ -1061,6 +1043,10 @@ public class Graphe
 	
 	public void marges_libres()
 	{
+		verifier_ordonnancement();
+		if(this.ordonnancement == false)
+		{ return; }
+		
 		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
 		{
 			if(this.liste_sommets.get(i).isPoint_entree() == false && this.liste_sommets.get(i).isPoint_sortie() == false)
