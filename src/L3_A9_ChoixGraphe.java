@@ -15,11 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class ChoixGraphe extends JFrame{
+public class L3_A9_ChoixGraphe extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	
-	public ChoixGraphe()
+	public L3_A9_ChoixGraphe()
 	{
 		this.setTitle("Projet de Theorie des Graphes - S6");			
 		this.setPreferredSize(new Dimension(800, 600));				
@@ -105,8 +105,8 @@ public class ChoixGraphe extends JFrame{
 				{
 					if((Integer.parseInt(numero.getText()) <= 13) && (Integer.parseInt(numero.getText()) >= 0))
 					{
-						String nom_graphe = "L3-A9-Graphe" + numero.getText() + ".txt";
-						new Graphe(nom_graphe);
+						String nom_graphe = "A9-Graphe" + numero.getText() + ".txt";
+						new L3_A9_Graphe(nom_graphe);
 						dispose();
 					}
 					else
@@ -153,9 +153,9 @@ public class ChoixGraphe extends JFrame{
 		this.setVisible(true);						//Set the frame visible
 	}	
 
-	public static Graphe choisir_graphe(String new_graphe)
+	public static L3_A9_Graphe choisir_graphe(String new_graphe)
 	{
-		Graphe graphe = new Graphe(new_graphe);
+		L3_A9_Graphe graphe = new L3_A9_Graphe(new_graphe);
 		return graphe;
 	}
 

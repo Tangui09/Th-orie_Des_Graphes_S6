@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,11 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class Graphe 
+public class L3_A9_Graphe 
 {
 	private int nb_sommets;
 	private int nb_arc;
-	private ArrayList<Sommet> liste_sommets = new ArrayList<Sommet>();
+	private ArrayList<L3_A9_Sommet> liste_sommets = new ArrayList<L3_A9_Sommet>();
 	
 	private boolean verif_circuit = false;
 	private boolean circuit;
@@ -39,14 +40,14 @@ public class Graphe
 	
 	/// CONSTRUCTEURS ///
 	
-	public Graphe(String nom_fichier)
+	public L3_A9_Graphe(String nom_fichier)
 	{
 		try
 		{
 			sc = new Scanner(new File(nom_fichier));							// Trouver le fichier
 			
-			this.set_nb_sommets(Integer.parseInt(sc.nextLine()));				// La première ligne nous donne le nombre de sommet dans le graphe
-			this.set_nb_arc(Integer.parseInt(sc.nextLine()));					// La deuxième ligne correspond au nombre d'arcs dans le graphe
+			this.set_nb_sommets(Integer.parseInt(sc.nextLine()));				// La première ligne nous donne le nombre de sommet dans le L3_A9_Graphe
+			this.set_nb_arc(Integer.parseInt(sc.nextLine()));					// La deuxième ligne correspond au nombre d'arcs dans le L3_A9_Graphe
 			
 			while(sc.hasNext())
 			{
@@ -55,13 +56,13 @@ public class Graphe
 			    
 			    if(sommet_existant(strs[0]) == -1)												// Si le sommet n'existe pas encore
 			    {
-			    	Sommet nouveau_sommet = new Sommet(strs[0]);								// Créer un nouveau sommet
+			    	L3_A9_Sommet nouveau_sommet = new L3_A9_Sommet(strs[0]);								// Créer un nouveau sommet
 				    liste_sommets.add(nouveau_sommet);											// L'ajouter à la liste
 				    nouveau_sommet.nouvel_arc(strs[1], Integer.parseInt(strs[2]));				// Lui ajouter un arc
 				    	
 				    if(sommet_existant(strs[1]) == -1)											// Si le successeur n'existe pas encore
 				    {
-				    	Sommet nouveau_sommet1 = new Sommet(strs[1]);							// Créer le sommet du successeur
+				    	L3_A9_Sommet nouveau_sommet1 = new L3_A9_Sommet(strs[1]);							// Créer le sommet du successeur
 				    	liste_sommets.add(nouveau_sommet1);										// L'ajouter à la liste
 				    }
 			    }
@@ -71,7 +72,7 @@ public class Graphe
 			    		
 			    	if(sommet_existant(strs[1]) == -1)											// Si le successeur n'existe pas encore
 				    {
-				    	Sommet nouveau_sommet1 = new Sommet(strs[1]);							// Créer le sommet du successeur
+			    		L3_A9_Sommet nouveau_sommet1 = new L3_A9_Sommet(strs[1]);							// Créer le sommet du successeur
 				    	liste_sommets.add(nouveau_sommet1);										// L'ajouter à la liste
 				    }
 			    }
@@ -80,7 +81,7 @@ public class Graphe
 		
 		this.classer_liste_sommets();															// Classer la liste
 	
-		menu_graphe(nom_fichier);
+		menu_L3_A9_Graphe(nom_fichier);
 	}
 	
 	/// CONSTRUCTEURS ///
@@ -151,7 +152,7 @@ public class Graphe
 	
 	private void classer_liste_sommets()						// Classer les sommet par ordre croissant
 	{
-		ArrayList<Sommet> tempo_liste_sommets = new ArrayList<Sommet>();
+		ArrayList<L3_A9_Sommet> tempo_liste_sommets = new ArrayList<L3_A9_Sommet>();
 		
 		for(int i = 0 ; i < this.liste_sommets.size() ; i++)
 		{
@@ -177,18 +178,18 @@ public class Graphe
 		return -1;												// Sinon, retourner -1 pour signaler qu'il n'existe pas
 	}
 	
-	public JPanel afficher_graphe()
+	public JPanel afficher_L3_A9_Graphe()
 	{
 		JPanel globalPanel = new JPanel();
 		globalPanel.setLayout(new BorderLayout(0,0));
 		
 		
 		
-		JLabel infos_graphe = new JLabel("Ce graphe possède " + this.get_nb_sommets() + " sommets et " + this.get_nb_arc() + " arcs !");
-		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
-		infos_graphe.setBorder(new EmptyBorder(150, 0, 0, 0));
-		globalPanel.add(infos_graphe, BorderLayout.NORTH);
+		JLabel infos_L3_A9_Graphe = new JLabel("Ce L3_A9_Graphe possède " + this.get_nb_sommets() + " sommets et " + this.get_nb_arc() + " arcs !");
+		infos_L3_A9_Graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		infos_L3_A9_Graphe.setHorizontalAlignment(SwingConstants.CENTER);
+		infos_L3_A9_Graphe.setBorder(new EmptyBorder(150, 0, 0, 0));
+		globalPanel.add(infos_L3_A9_Graphe, BorderLayout.NORTH);
 		
 		
 		
@@ -207,7 +208,7 @@ public class Graphe
 		
 		
 		
-		for(int i = 0 ; i < this.get_nb_sommets() ; i++)					// Parcourir la list des sommets du graphe
+		for(int i = 0 ; i < this.get_nb_sommets() ; i++)					// Parcourir la list des sommets du L3_A9_Graphe
 		{
 			if(gbcMain.gridy == 7)
 			{
@@ -237,7 +238,7 @@ public class Graphe
 					}
 					gbcMain.gridy += 1;
 					
-					Arc t = liste_sommets.get(i).getArc(j);
+					L3_A9_Arc t = liste_sommets.get(i).getArc(j);
 
 					JLabel Sommet = new JLabel(liste_sommets.get(i).getNom() + " -> " + t.getSuccesseur() + " = " + t.getValeur());
 					Sommet.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -257,11 +258,11 @@ public class Graphe
 		globalPanel.setLayout(new BorderLayout(0,0));
 		
 		
-		JLabel infos_graphe = new JLabel("Matrice d'adjacence");
-		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
-		infos_graphe.setBorder(new EmptyBorder(20, 0, 0, 0));
-		globalPanel.add(infos_graphe, BorderLayout.NORTH);
+		JLabel infos_L3_A9_Graphe = new JLabel("Matrice d'adjacence");
+		infos_L3_A9_Graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		infos_L3_A9_Graphe.setHorizontalAlignment(SwingConstants.CENTER);
+		infos_L3_A9_Graphe.setBorder(new EmptyBorder(20, 0, 0, 0));
+		globalPanel.add(infos_L3_A9_Graphe, BorderLayout.NORTH);
 		
 		
 		JPanel matriceAdjacencePanel = new JPanel();
@@ -351,11 +352,11 @@ public class Graphe
 		globalPanel.setLayout(new BorderLayout(0,0));
 		
 		
-		JLabel infos_graphe = new JLabel("Matrice des valeurs");
-		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
-		infos_graphe.setBorder(new EmptyBorder(20, 0, 0, 0));
-		globalPanel.add(infos_graphe, BorderLayout.NORTH);
+		JLabel infos_L3_A9_Graphe = new JLabel("Matrice des valeurs");
+		infos_L3_A9_Graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		infos_L3_A9_Graphe.setHorizontalAlignment(SwingConstants.CENTER);
+		infos_L3_A9_Graphe.setBorder(new EmptyBorder(20, 0, 0, 0));
+		globalPanel.add(infos_L3_A9_Graphe, BorderLayout.NORTH);
 		
 		
 		JPanel matriceAdjacencePanel = new JPanel();
@@ -462,10 +463,10 @@ public class Graphe
 	public JPanel detection_circuit()
 	{
 		boolean entree_restante = true;
-		ArrayList<Sommet> liste_sommets_circuit = new ArrayList<Sommet>();
+		ArrayList<L3_A9_Sommet> liste_sommets_circuit = new ArrayList<L3_A9_Sommet>();
 		liste_sommets_circuit.addAll(this.liste_sommets);
 		
-		ArrayList<Sommet> liste_sommets_hors_circuit = new ArrayList<Sommet>();		// On supprimera les sommets pouvant faire partie d'un circuit
+		ArrayList<L3_A9_Sommet> liste_sommets_hors_circuit = new ArrayList<L3_A9_Sommet>();		// On supprimera les sommets pouvant faire partie d'un circuit
 		
 		int rang = 0;
 		
@@ -602,7 +603,7 @@ public class Graphe
 				
 				if(liste_sommets_circuit.size() == 0)														// Vérifier s'il reste des sommets dits "hors-circuits" ou non
 				{
-					JLabel presenceCircuit = new JLabel("Il n'y a pas de circuit dans ce graphe !");
+					JLabel presenceCircuit = new JLabel("Il n'y a pas de circuit dans ce L3_A9_Graphe !");
 					presenceCircuit.setFont(new Font("Tahoma", Font.PLAIN, 12));
 					presenceCircuit.setHorizontalAlignment(SwingConstants.CENTER);
 					circuitPanel.add(presenceCircuit,gbcMain);
@@ -612,7 +613,7 @@ public class Graphe
 				}
 				else
 				{
-					JLabel presenceCircuit = new JLabel("Attention ! Il y a un circuit dans ce graphe !");
+					JLabel presenceCircuit = new JLabel("Attention ! Il y a un circuit dans ce L3_A9_Graphe !");
 					presenceCircuit.setFont(new Font("Tahoma", Font.PLAIN, 12));
 					presenceCircuit.setHorizontalAlignment(SwingConstants.CENTER);
 					circuitPanel.add(presenceCircuit,gbcMain);
@@ -650,7 +651,7 @@ public class Graphe
 		
 		if(this.isCircuit() == true)																							// S'il y a un circuit, pas de calcul de rang possible
 		{
-			JLabel text = new JLabel("Calcul du rang impossible car il y a un circuit dans le graphe !");
+			JLabel text = new JLabel("Calcul du rang impossible car il y a un circuit dans le L3_A9_Graphe !");
 			text.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			text.setHorizontalAlignment(SwingConstants.CENTER);
 			rangPanel.add(text,gbcMain);
@@ -712,7 +713,7 @@ public class Graphe
 		
 		if(isCircuit() == true)
 		{
-			JLabel circuit = new JLabel("Il y a un circuit ! Ce n'est donc pas un graphe d'ordonnancement !");
+			JLabel circuit = new JLabel("Il y a un circuit ! Ce n'est donc pas un L3_A9_Graphe d'ordonnancement !");
 			circuit.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			circuit.setHorizontalAlignment(SwingConstants.CENTER);
 			ordonnancementPanel.add(circuit,gbcMain);
@@ -737,7 +738,7 @@ public class Graphe
 		int position_rang_max = 0;
 		int rang_max_valeur = 0;
 		
-		for(int i = 0; i < this.liste_sommets.size() ; i++)										// Vérifions les rangs de tous les sommets du graphe
+		for(int i = 0; i < this.liste_sommets.size() ; i++)										// Vérifions les rangs de tous les sommets du L3_A9_Graphe
 		{
 			if(this.liste_sommets.get(i).getRang() == 0)										// S'il est de rang 0
 			{
@@ -770,11 +771,11 @@ public class Graphe
 		}
 		else
 		{
-			JLabel entree = new JLabel("Il n'y a pas qu'un seul point d'entrée ! Ce n'est donc pas un graphe d'ordonnancement !");
+			JLabel entree = new JLabel("Il n'y a pas qu'un seul point d'entrée ! Ce n'est donc pas un L3_A9_Graphe d'ordonnancement !");
 			entree.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			entree.setHorizontalAlignment(SwingConstants.CENTER);
 			ordonnancementPanel.add(entree,gbcMain);
-			return ordonnancementPanel;																			// On arrête de vérifier parce que ce n'est pas un graphe d'odonnancement
+			return ordonnancementPanel;																			// On arrête de vérifier parce que ce n'est pas un L3_A9_Graphe d'odonnancement
 		}
 		
 		gbcMain.gridy += 1;
@@ -789,11 +790,11 @@ public class Graphe
 		}
 		else
 		{
-			JLabel sortie = new JLabel("Il n'y a pas qu'un seul point de sortie ! Ce n'est donc pas un graphe d'ordonnancement !");
+			JLabel sortie = new JLabel("Il n'y a pas qu'un seul point de sortie ! Ce n'est donc pas un L3_A9_Graphe d'ordonnancement !");
 			sortie.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			sortie.setHorizontalAlignment(SwingConstants.CENTER);
 			ordonnancementPanel.add(sortie,gbcMain);
-			return ordonnancementPanel;																			// On arrête de vérifier parce que ce n'est pas un graphe d'odonnancement
+			return ordonnancementPanel;																			// On arrête de vérifier parce que ce n'est pas un L3_A9_Graphe d'odonnancement
 		}
 		
 		
@@ -818,7 +819,7 @@ public class Graphe
 						
 						gbcMain.gridy += 1;
 						
-						JLabel arc2 = new JLabel("Ce n'est donc pas un graphe d'ordonnancement !");
+						JLabel arc2 = new JLabel("Ce n'est donc pas un L3_A9_Graphe d'ordonnancement !");
 						arc2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 						arc2.setHorizontalAlignment(SwingConstants.CENTER);
 						ordonnancementPanel.add(arc2,gbcMain);
@@ -850,7 +851,7 @@ public class Graphe
 				
 				gbcMain.gridy += 1;
 				
-				JLabel valeur2 = new JLabel("Ce n'est donc pas un graphe d'ordonnancement !");
+				JLabel valeur2 = new JLabel("Ce n'est donc pas un L3_A9_Graphe d'ordonnancement !");
 				valeur2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 				valeur2.setHorizontalAlignment(SwingConstants.CENTER);
 				ordonnancementPanel.add(valeur2,gbcMain);
@@ -883,7 +884,7 @@ public class Graphe
 						
 						gbcMain.gridy += 1;
 						
-						JLabel arc_neg2 = new JLabel("Ce n'est donc pas un graphe d'ordonnancement !");
+						JLabel arc_neg2 = new JLabel("Ce n'est donc pas un L3_A9_Graphe d'ordonnancement !");
 						arc_neg2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 						arc_neg2.setHorizontalAlignment(SwingConstants.CENTER);
 						ordonnancementPanel.add(arc_neg2,gbcMain);
@@ -901,7 +902,7 @@ public class Graphe
 		
 		gbcMain.gridy += 1;
 		
-		JLabel condition = new JLabel("Toutes les conditions sont vérifiées, c'est donc bien un graphe d'ordonnancement !");
+		JLabel condition = new JLabel("Toutes les conditions sont vérifiées, c'est donc bien un L3_A9_Graphe d'ordonnancement !");
 		condition.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		condition.setHorizontalAlignment(SwingConstants.CENTER);
 		ordonnancementPanel.add(condition,gbcMain);
@@ -943,7 +944,7 @@ public class Graphe
 			{
 				if(rang > 0 && this.liste_sommets.get(j).getRang() == rang)								// Pour les sommets de rang supérieurs à 0 (pas d'intéret pour le point d'entrée)
 				{																						// qui correspondent au rang étudier
-					ArrayList<Sommet> liste_sommet_predecesseur = new ArrayList<Sommet>();
+					ArrayList<L3_A9_Sommet> liste_sommet_predecesseur = new ArrayList<L3_A9_Sommet>();
 					
 					for(int predecesseur = 0 ; predecesseur <this.liste_sommets.size() ; predecesseur++)	// Cherchons les predecesseurs
 					{
@@ -953,7 +954,7 @@ public class Graphe
 							{
 								if(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur().equals(this.liste_sommets.get(j).getNom()))		// on ajoute les bons arcs
 								{																																// à la liste
-									Sommet nouveau_sommet = new Sommet(this.liste_sommets.get(predecesseur).getNom());
+									L3_A9_Sommet nouveau_sommet = new L3_A9_Sommet(this.liste_sommets.get(predecesseur).getNom());
 									nouveau_sommet.nouvel_arc(this.liste_sommets.get(predecesseur).getArc(arc_successeur).getSuccesseur(), this.liste_sommets.get(predecesseur).getArc(arc_successeur).getValeur());
 									nouveau_sommet.setDate_au_plus_tot_sommet(this.liste_sommets.get(predecesseur).getDate_au_plus_tot_sommet());
 									liste_sommet_predecesseur.add(nouveau_sommet);
@@ -1094,9 +1095,9 @@ public class Graphe
 		
 		verifier_ordonnancement();																		// On vérifie toujours l'odonnancement avant de faire le calendrier
 		
-		if(isOrdonnancement() == false)																	// Si ce n'est pas un graphe d'ordonnancement, on s'arrête là
+		if(isOrdonnancement() == false)																	// Si ce n'est pas un L3_A9_Graphe d'ordonnancement, on s'arrête là
 		{
-			JLabel isOrdonnancement = new JLabel("Ce n'est pas un graphe d'ordonnancement !");
+			JLabel isOrdonnancement = new JLabel("Ce n'est pas un L3_A9_Graphe d'ordonnancement !");
 			isOrdonnancement.setFont(new Font("Tahoma", Font.PLAIN, 28));
 			isOrdonnancement.setHorizontalAlignment(SwingConstants.CENTER);
 			calendierPanel.add(isOrdonnancement,gbcMain);
@@ -1205,11 +1206,6 @@ public class Graphe
 		return calendierPanel;
 	}
 	
-	public void trace_execution()
-	{
-		
-	}
-	
 	/// METHODES ///
 	
 	
@@ -1218,18 +1214,19 @@ public class Graphe
 	
 	/// AFFICHAGE ///
 	
-	public void menu_graphe(String nom_graphe)
+	public void menu_L3_A9_Graphe(String nom_L3_A9_Graphe)
 	{
-		JFrame frame_graphe = new JFrame();
+		JFrame frame_L3_A9_Graphe = new JFrame();
 		
-		frame_graphe.setTitle(nom_graphe);					
-		frame_graphe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame_L3_A9_Graphe.setTitle(nom_L3_A9_Graphe);			
+		frame_L3_A9_Graphe.setPreferredSize(new Dimension(1200, 1000));				
+		frame_L3_A9_Graphe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		frame_L3_A9_Graphe.setResizable(true);
 		
 		
 		
 		JPanel mainPanel = new JPanel();							//Global panel of the frame
-		frame_graphe.setContentPane(mainPanel);									//Setting the previous panel as the global panel of the frame
+		frame_L3_A9_Graphe.setContentPane(mainPanel);									//Setting the previous panel as the global panel of the frame
 		mainPanel.setLayout(new BorderLayout(0,0));					//Change the panel type to a NORTH-SOUTH-EAST-WEST-CENTER model
 		BorderLayout layout = (BorderLayout)mainPanel.getLayout();
 
@@ -1249,7 +1246,7 @@ public class Graphe
 		mainPanel.add(topPanel, BorderLayout.NORTH);				//Setting its postion to be on the NORTH of the mainPanel
 		topPanel.setLayout(new BorderLayout(0,0));					//Change the panel type to a NORTH-SOUTH-EAST-WEST-CENTER model
 			
-		JLabel grand_titre = new JLabel("Projet de Théorie des Graphes S6");					//Create a button to exit the entire program
+		JLabel grand_titre = new JLabel("Projet de Théorie des L3_A9_Graphes S6");					//Create a button to exit the entire program
 		topPanel.add(grand_titre, BorderLayout.NORTH);				//Setting its postion to be on the EASt of the topPanel
 		grand_titre.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		grand_titre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1276,18 +1273,17 @@ public class Graphe
 		gbcMain.fill = GridBagConstraints.HORIZONTAL;				//If the component is too big for one cell, fill horizontally to the next cell
 		gbcMain.insets = new Insets(10,10,10,10);
 		
-		JButton affichageButton = new JButton("Afficher graphe");
+		JButton affichageButton = new JButton("Afficher L3_A9_Graphe");
 		bottomPanel.add(affichageButton,gbcMain);
 		affichageButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
-				JPanel centerPanel = afficher_graphe();
+				frame_L3_A9_Graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				JPanel centerPanel = afficher_L3_A9_Graphe();
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
-				frame_graphe.setContentPane(mainPanel);
-				frame_graphe.pack();
-				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame_L3_A9_Graphe.setContentPane(mainPanel);
+				frame_L3_A9_Graphe.pack();
 
 			}
 		});
@@ -1299,12 +1295,11 @@ public class Graphe
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				frame_L3_A9_Graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
 				JPanel centerPanel = matrices();
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
-				frame_graphe.setContentPane(mainPanel);
-				frame_graphe.pack();
-				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame_L3_A9_Graphe.setContentPane(mainPanel);
+				frame_L3_A9_Graphe.pack();
 			}
 		});
 		
@@ -1315,12 +1310,11 @@ public class Graphe
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				frame_L3_A9_Graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
 				JPanel centerPanel = detection_circuit();
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
-				frame_graphe.setContentPane(mainPanel);
-				frame_graphe.pack();
-				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame_L3_A9_Graphe.setContentPane(mainPanel);
+				frame_L3_A9_Graphe.pack();
 			}
 		});
 		
@@ -1331,12 +1325,11 @@ public class Graphe
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				frame_L3_A9_Graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
 				JPanel centerPanel = calcul_rang();
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
-				frame_graphe.setContentPane(mainPanel);
-				frame_graphe.pack();
-				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame_L3_A9_Graphe.setContentPane(mainPanel);
+				frame_L3_A9_Graphe.pack();
 			}
 		});
 		
@@ -1347,12 +1340,11 @@ public class Graphe
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				frame_L3_A9_Graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
 				JPanel centerPanel = verifier_ordonnancement();
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
-				frame_graphe.setContentPane(mainPanel);
-				frame_graphe.pack();
-				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame_L3_A9_Graphe.setContentPane(mainPanel);
+				frame_L3_A9_Graphe.pack();
 			}
 		});
 		
@@ -1363,26 +1355,25 @@ public class Graphe
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame_graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
+				frame_L3_A9_Graphe.getContentPane().remove(layout.getLayoutComponent(BorderLayout.CENTER));
 				JPanel centerPanel = calendrier();
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
-				frame_graphe.setContentPane(mainPanel);
-				frame_graphe.pack();
-				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				frame_L3_A9_Graphe.setContentPane(mainPanel);
+				frame_L3_A9_Graphe.pack();
 			}
 		});
 		
 		gbcMain.gridy = 1;
 		gbcMain.gridx = 2;
 		gbcMain.gridwidth = 2;
-		JButton changeButton = new JButton("Changer de graphe");
+		JButton changeButton = new JButton("Changer de L3_A9_Graphe");
 		bottomPanel.add(changeButton,gbcMain);
 		changeButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				new ChoixGraphe();
-				frame_graphe.dispose();
+				new L3_A9_ChoixGraphe();
+				frame_L3_A9_Graphe.dispose();
 			}
 		});
 		
@@ -1391,9 +1382,9 @@ public class Graphe
 		
 		
 		
-		frame_graphe.pack();										//pack all the components together, to create the frame
-		frame_graphe.setLocationRelativeTo(null);			//Center the frame on the screen
-		frame_graphe.setVisible(true);						//Set the frame visible
+		frame_L3_A9_Graphe.pack();										//pack all the components together, to create the frame
+		frame_L3_A9_Graphe.setLocationRelativeTo(null);			//Center the frame on the screen
+		frame_L3_A9_Graphe.setVisible(true);						//Set the frame visible
 	}
 
 	/// AFFICHAGE ///

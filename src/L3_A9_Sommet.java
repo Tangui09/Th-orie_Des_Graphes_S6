@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class Sommet 
+public class L3_A9_Sommet 
 {
 	private String nom;
-	private ArrayList<Arc> liste_arcs = new ArrayList<Arc>();
+	private ArrayList<L3_A9_Arc> liste_arcs = new ArrayList<L3_A9_Arc>();
 	private int rang;
 	
 	private boolean point_entree = false;
@@ -18,7 +18,7 @@ public class Sommet
 	
 	/// CONSTRUCTEURS ///
 	
-	public Sommet(String nom)
+	public L3_A9_Sommet(String nom)
 	{
 		this.setNom(nom);
 	}
@@ -31,7 +31,7 @@ public class Sommet
 	
 	public void nouvel_arc(String successeur, int valeur_trans)
 	{
-		Arc trans = new Arc(successeur, valeur_trans);
+		L3_A9_Arc trans = new L3_A9_Arc(successeur, valeur_trans);
 		liste_arcs.add(trans);
 	}
 	
@@ -50,7 +50,7 @@ public class Sommet
 	public int get_nb_arc() 
 	{ return liste_arcs.size(); }
 	
-	public Arc getArc(int position)
+	public L3_A9_Arc getArc(int position)
 	{ return liste_arcs.get(position); }
 
 	public int getRang() 
