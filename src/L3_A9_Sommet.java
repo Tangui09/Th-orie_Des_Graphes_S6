@@ -31,8 +31,8 @@ public class L3_A9_Sommet
 	
 	public void nouvel_arc(String successeur, int valeur_trans)
 	{
-		L3_A9_Arc trans = new L3_A9_Arc(successeur, valeur_trans);
-		liste_arcs.add(trans);
+		L3_A9_Arc trans = new L3_A9_Arc(successeur, valeur_trans);			// Créer un nouvel arc
+		liste_arcs.add(trans);												// L'ajouter à la liste des arcs de ce sommet
 	}
 	
 	/// METHODES ///
