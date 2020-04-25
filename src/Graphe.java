@@ -1219,7 +1219,7 @@ public class Graphe
 		JFrame frame_graphe = new JFrame();
 		
 		frame_graphe.setTitle(nom_graphe);			
-		frame_graphe.setPreferredSize(new Dimension(1200, 1000));				
+		frame_graphe.setPreferredSize(new Dimension(1400, 800));				
 		frame_graphe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		frame_graphe.setResizable(false);
 		
