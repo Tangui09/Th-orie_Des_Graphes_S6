@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -1206,6 +1205,11 @@ public class Graphe
 		return calendierPanel;
 	}
 	
+	public void trace_execution()
+	{
+		
+	}
+	
 	/// METHODES ///
 	
 	
@@ -1284,6 +1288,7 @@ public class Graphe
 				frame_graphe.setContentPane(mainPanel);
 				frame_graphe.pack();
 				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 			}
 		});
 		
