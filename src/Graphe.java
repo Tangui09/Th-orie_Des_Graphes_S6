@@ -261,7 +261,7 @@ public class Graphe
 		JLabel infos_graphe = new JLabel("Matrice d'adjacence");
 		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
-		infos_graphe.setBorder(new EmptyBorder(90, 0, 0, 0));
+		infos_graphe.setBorder(new EmptyBorder(20, 0, 0, 0));
 		globalPanel.add(infos_graphe, BorderLayout.NORTH);
 		
 		
@@ -355,7 +355,7 @@ public class Graphe
 		JLabel infos_graphe = new JLabel("Matrice des valeurs");
 		infos_graphe.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		infos_graphe.setHorizontalAlignment(SwingConstants.CENTER);
-		infos_graphe.setBorder(new EmptyBorder(90, 0, 0, 0));
+		infos_graphe.setBorder(new EmptyBorder(20, 0, 0, 0));
 		globalPanel.add(infos_graphe, BorderLayout.NORTH);
 		
 		
@@ -1218,10 +1218,9 @@ public class Graphe
 	{
 		JFrame frame_graphe = new JFrame();
 		
-		frame_graphe.setTitle(nom_graphe);			
-		frame_graphe.setPreferredSize(new Dimension(1400, 800));				
+		frame_graphe.setTitle(nom_graphe);					
 		frame_graphe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		frame_graphe.setResizable(false);
+		frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		
 		
@@ -1284,6 +1283,7 @@ public class Graphe
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
 				frame_graphe.setContentPane(mainPanel);
 				frame_graphe.pack();
+				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
 		});
 		
@@ -1299,6 +1299,7 @@ public class Graphe
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
 				frame_graphe.setContentPane(mainPanel);
 				frame_graphe.pack();
+				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
 		});
 		
@@ -1314,6 +1315,7 @@ public class Graphe
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
 				frame_graphe.setContentPane(mainPanel);
 				frame_graphe.pack();
+				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
 		});
 		
@@ -1329,6 +1331,7 @@ public class Graphe
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
 				frame_graphe.setContentPane(mainPanel);
 				frame_graphe.pack();
+				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
 		});
 		
@@ -1344,6 +1347,7 @@ public class Graphe
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
 				frame_graphe.setContentPane(mainPanel);
 				frame_graphe.pack();
+				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
 		});
 		
@@ -1359,6 +1363,7 @@ public class Graphe
 				mainPanel.add(centerPanel, BorderLayout.CENTER);
 				frame_graphe.setContentPane(mainPanel);
 				frame_graphe.pack();
+				frame_graphe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
 		});
 		
