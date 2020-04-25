@@ -1093,9 +1093,9 @@ public class Graphe
 		gbcMain.fill = GridBagConstraints.HORIZONTAL;
 		gbcMain.insets = new Insets(3,10,3,10);
 		
-		verifier_ordonnancement();
+		verifier_ordonnancement();																		// On vérifie toujours l'odonnancement avant de faire le calendrier
 		
-		if(isOrdonnancement() == false)
+		if(isOrdonnancement() == false)																	// Si ce n'est pas un graphe d'ordonnancement, on s'arrête là
 		{
 			JLabel isOrdonnancement = new JLabel("Ce n'est pas un graphe d'ordonnancement !");
 			isOrdonnancement.setFont(new Font("Tahoma", Font.PLAIN, 28));
@@ -1147,19 +1147,19 @@ public class Graphe
 		
 		
 
-		for(int i = 0; i < this.liste_sommets.size(); i++)
+		for(int i = 0; i < this.liste_sommets.size(); i++)								// Affichage en ligne pour chacun des sommets
 		{
 			gbcMain.gridx = 0;
 			gbcMain.gridy += 1;
 			
-			if(this.liste_sommets.get(i).isPoint_entree() == true)
+			if(this.liste_sommets.get(i).isPoint_entree() == true)						// Afficher le point d'entrée
 			{
 				JLabel Entree = new JLabel("Point d'entrée");
 				Entree.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				Entree.setHorizontalAlignment(SwingConstants.CENTER);
 				calendierPanel.add(Entree,gbcMain);
 			}
-			else if(this.liste_sommets.get(i).isPoint_sortie() == true)
+			else if(this.liste_sommets.get(i).isPoint_sortie() == true)					// Afficher le point de sortie
 			{
 				JLabel Sortie = new JLabel("Point de sortie");
 				Sortie.setFont(new Font("Tahoma", Font.PLAIN, 15));
