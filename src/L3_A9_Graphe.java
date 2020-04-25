@@ -859,7 +859,7 @@ public class L3_A9_Graphe
 			}
 		}
 
-		JLabel valeur = new JLabel("Valeurs nulles pour tous les arcs incidents vers l’exterieur au point d’entree !");						// Afficher ce texte
+		JLabel valeur = new JLabel("Valeurs nulles pour tous les arcs incidents vers l'exterieur au point d'entree !");						// Afficher ce texte
 		valeur.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		valeur.setHorizontalAlignment(SwingConstants.CENTER);
 		ordonnancementPanel.add(valeur,gbcMain);
