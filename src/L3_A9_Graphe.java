@@ -935,8 +935,8 @@ public class L3_A9_Graphe
 			}
 		}
 		
-		this.liste_sommets.get(position_rang_0).setDate_au_plus_tot_sommet(0);								// On set la date au plus tôt du point d'entree à 0
-		this.setDate_au_plus_tot(0);																		// On set la date au plus tôt globale à 0 pour commencer le calcul
+		this.liste_sommets.get(position_rang_0).setDate_au_plus_tot_sommet(0);								// On set la date au plus tot du point d'entree à 0
+		this.setDate_au_plus_tot(0);																		// On set la date au plus tot globale à 0 pour commencer le calcul
 		
 		for(int rang = 0 ; rang <= this.liste_sommets.get(position_rang_max).getRang() ; rang++)				// Tant que l'on est pas arrive au point de sortie, on verifie tous les rangs
 		{
@@ -999,7 +999,7 @@ public class L3_A9_Graphe
 			}
 		}
 		
-		this.liste_sommets.get(position_rang_max).setDate_au_plus_tard_sommet(this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet());	// On set la date au plus tôt du point d'entree à 0
+		this.liste_sommets.get(position_rang_max).setDate_au_plus_tard_sommet(this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet());	// On set la date au plus tot du point d'entree à 0
 		this.setDate_au_plus_tard(this.liste_sommets.get(position_rang_max).getDate_au_plus_tot_sommet());												// On copie la date au plus tot du point de sortie
 		this.liste_sommets.get(position_rang_0).setDate_au_plus_tard_sommet(0);
 		
@@ -1119,7 +1119,7 @@ public class L3_A9_Graphe
 		
 		gbcMain.gridx += 1;
 		
-		JLabel textPlusTot = new JLabel("Date au plus tôt");
+		JLabel textPlusTot = new JLabel("Date au plus tot");
 		textPlusTot.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textPlusTot.setHorizontalAlignment(SwingConstants.CENTER);
 		calendierPanel.add(textPlusTot,gbcMain);
