@@ -23,6 +23,7 @@ public class Main {
 			System.out.println("4°) Calculer le rang");
 			System.out.println("5°) Vérifier si c'est un graphe d'ordonnancement");
 			System.out.println("6°) Calendrier");
+			System.out.println("7°) Tout afficher");
 			
 			System.out.print("\nNuméro de l'action à faire : ");
 			sc1 = new Scanner(System.in);
@@ -51,7 +52,7 @@ public class Main {
 				    break;
 			 
 			  case 4:
-					graphe.calcul_rang();;
+					graphe.calcul_rang();
 					x = -1;
 				    break;  
 				    
@@ -65,6 +66,30 @@ public class Main {
 					graphe.dates_au_plus_tard();
 					graphe.marges_totales();
 					graphe.marges_libres();
+					x = -1;
+				    break; 
+				    
+			  case 7:
+				  	System.out.println("/// AFFICHAGE DU GRAPHE ///\n");
+				  	graphe.afficher_graphe();
+				  	System.out.print("\n\n");
+				  	System.out.println("/// AFFICHAGE DU GRAPHE ///\n\n");
+				  	
+				  	System.out.println("/// AFFICHAGE DES MATRICES ///\n");
+				  	graphe.matrice_adjacence();
+				  	System.out.print("\n\n");
+				  	graphe.matrice_valeur();
+				  	System.out.print("\n\n");
+				  	System.out.println("/// AFFICHAGE DES MATRICES ///\n\n");
+				    
+				  	System.out.println("/// CALCUL DU RANG ///\n\n");
+				    graphe.calcul_rang();
+				    System.out.println("/// CALCUL DU RANG ///\n\n");
+				    
+				    System.out.println("/// ORDONNANCEMENT ///\n\n");
+				    graphe.calendrier();
+				    System.out.print("\n\n");
+				    System.out.println("/// ORDONNANCEMENT ///\n\n");
 					x = -1;
 				    break; 
 				    

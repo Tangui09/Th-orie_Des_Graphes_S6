@@ -1,0 +1,67 @@
+/// AFFICHAGE DU GRAPHE ///
+
+
+Ce graphe possède 4 sommets !
+Ce graphe possède 5 arcs !
+
+0 -> 1 = 0
+1 -> 0 = 12
+2 -> 0 = -5
+2 -> 1 = 7
+3 -> 1 = 25
+
+
+/// AFFICHAGE DU GRAPHE ///
+
+
+/// AFFICHAGE DES MATRICES ///
+
+
+Matrice d'adjacence
+
+	0	1	2	3
+0	F	V	F	F
+1	V	F	F	F
+2	V	V	F	F
+3	F	V	F	F
+
+
+
+Matrice des valeurs
+
+	0	1	2	3
+0	*	0	*	*
+1	12	*	*	*
+2	-5	7	*	*
+3	*	25	*	*
+
+
+/// AFFICHAGE DES MATRICES ///
+
+
+/// CALCUL DU RANG ///
+
+
+Points d'entrée :
+2 3 
+Suppression des points d'entrée !
+Points restant : 
+0 1 
+Points d'entrée :
+Aucun !
+
+Attention ! Il y a un circuit dans ce graphe !
+Calcul du rang impossible car il y a un circuit dans le graphe !
+
+
+
+/// CALCUL DU RANG ///
+
+
+/// ORDONNANCEMENT ///
+
+
+Il y a un circuit ! Ce n'est donc pas un graphe d'ordonnancement !
+
+
+/// ORDONNANCEMENT ///
