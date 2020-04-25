@@ -83,7 +83,7 @@ public class L3_A9_ChoixGraphe extends JFrame{
 			centerPanel.add(groupe,gbcMain);
 			
 			gbcMain.gridx = 1;
-			JTextField numero = new JTextField(10);											// Saisir le numéro du graph ici
+			JTextField numero = new JTextField(10);											// Saisir le numero du graph ici
 			numero.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			numero.setHorizontalAlignment(SwingConstants.CENTER);
 			centerPanel.add(numero,gbcMain);
@@ -106,7 +106,7 @@ public class L3_A9_ChoixGraphe extends JFrame{
 					if((Integer.parseInt(numero.getText()) <= 13) && (Integer.parseInt(numero.getText()) >= 0))			// Eviter un choix de graphe impossible
 					{
 						String nom_graphe = "A9-Graphe" + numero.getText() + ".txt";									// Ajouter automatiquement le A9_Graphe et le .txt
-						new L3_A9_Graphe(nom_graphe);																	// Créer le nouveau graphe et ouvrir sa fenêtre
+						new L3_A9_Graphe(nom_graphe);																	// Creer le nouveau graphe et ouvrir sa fenêtre
 						dispose();																						// Fermer la fenetre de choix de graphe
 					}
 					else													// Afficher un petit message d'erreur
