@@ -400,7 +400,7 @@ public class L3_A9_Graphe
 				{
 					gbcMain.gridx += 1;
 					
-					JLabel VF = new JLabel("*");										//Afficher F
+					JLabel VF = new JLabel("*");										//Afficher *
 					VF.setFont(new Font("Tahoma", Font.PLAIN, 14));
 					VF.setHorizontalAlignment(SwingConstants.CENTER);
 					matriceAdjacencePanel.add(VF,gbcMain);
@@ -1097,7 +1097,7 @@ public class L3_A9_Graphe
 		
 		if(isOrdonnancement() == false)																	// Si ce n'est pas un L3_A9_Graphe d'ordonnancement, on s'arrête là
 		{
-			JLabel isOrdonnancement = new JLabel("Ce n'est pas un L3_A9_Graphe d'ordonnancement !");
+			JLabel isOrdonnancement = new JLabel("Ce n'est pas un graphe d'ordonnancement !");
 			isOrdonnancement.setFont(new Font("Tahoma", Font.PLAIN, 28));
 			isOrdonnancement.setHorizontalAlignment(SwingConstants.CENTER);
 			calendierPanel.add(isOrdonnancement,gbcMain);
