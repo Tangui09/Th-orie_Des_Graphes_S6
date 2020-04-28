@@ -102,9 +102,9 @@ public class Main {
 	
 	public static Graphe choisir_graphe()
 	{
-		System.out.print("\nChoississez le nom d'un graphe : ");
+		System.out.print("\nChoississez un numéro de graphe : ");
 		sc = new Scanner(System.in);
-		String nom_graphe = sc.nextLine();
+		String nom_graphe = "A9-graphe" + sc.nextLine() + ".txt";
 		Graphe graphe = new Graphe(nom_graphe);
 		return graphe;
 	}
