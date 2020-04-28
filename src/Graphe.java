@@ -78,9 +78,7 @@ public class Graphe
 	{ this.nb_sommets = nb_sommets; }
 	
 	public int get_nb_arc()																// Récupérer le nombre d'arc du graphe
-	{
-		return nb_arc;
-	}
+	{ return nb_arc; }
 	
 	public void set_nb_arc(int nb_arc) 
 	{ this.nb_arc = nb_arc; }
@@ -563,7 +561,7 @@ public class Graphe
 					
 					for(int predecesseur = 0 ; predecesseur <this.liste_sommets.size() ; predecesseur++)	// Cherchons les predecesseurs
 					{
-						if(this.liste_sommets.get(predecesseur).getRang() == rang - 1)						// Si le sommet est du rang inférieur, il peut être lié à un arc à étudier
+						if(this.liste_sommets.get(predecesseur).getRang() <= rang - 1)						// Si le sommet est du rang inférieur, il peut être lié à un arc à étudier
 						{
 							for(int arc_successeur = 0; arc_successeur < this.liste_sommets.get(predecesseur).get_nb_arc() ; arc_successeur++)		// On vérifie tous les arcs
 							{
