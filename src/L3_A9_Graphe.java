@@ -72,7 +72,7 @@ public class L3_A9_Graphe
 			    		
 			    	if(sommet_existant(strs[1]) == -1)											// Si le successeur n'existe pas encore
 				    {
-			    		L3_A9_Sommet nouveau_sommet1 = new L3_A9_Sommet(strs[1]);							// Creer le sommet du successeur
+			    		L3_A9_Sommet nouveau_sommet1 = new L3_A9_Sommet(strs[1]);				// Creer le sommet du successeur
 				    	liste_sommets.add(nouveau_sommet1);										// L'ajouter à la liste
 				    }
 			    }
@@ -948,7 +948,7 @@ public class L3_A9_Graphe
 					
 					for(int predecesseur = 0 ; predecesseur <this.liste_sommets.size() ; predecesseur++)	// Cherchons les predecesseurs
 					{
-						if(this.liste_sommets.get(predecesseur).getRang() == rang - 1)						// Si le sommet est du rang inferieur, il peut être lie à un arc à etudier
+						if(this.liste_sommets.get(predecesseur).getRang() <= rang - 1)						// Si le sommet est du rang inferieur, il peut être lie à un arc à etudier
 						{
 							for(int arc_successeur = 0; arc_successeur < this.liste_sommets.get(predecesseur).get_nb_arc() ; arc_successeur++)		// On verifie tous les arcs
 							{
@@ -1246,7 +1246,7 @@ public class L3_A9_Graphe
 		mainPanel.add(topPanel, BorderLayout.NORTH);		
 		topPanel.setLayout(new BorderLayout(0,0));			
 			
-		JLabel grand_titre = new JLabel("Projet de Theorie des L3_A9_Graphes S6");	
+		JLabel grand_titre = new JLabel("Projet de Theorie des Graphes S6");	
 		topPanel.add(grand_titre, BorderLayout.NORTH);			
 		grand_titre.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		grand_titre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1273,7 +1273,7 @@ public class L3_A9_Graphe
 		gbcMain.fill = GridBagConstraints.HORIZONTAL;			
 		gbcMain.insets = new Insets(10,10,10,10);
 		
-		JButton affichageButton = new JButton("Afficher L3_A9_Graphe");
+		JButton affichageButton = new JButton("Afficher Graphe");
 		bottomPanel.add(affichageButton,gbcMain);
 		affichageButton.addActionListener(new ActionListener()
 		{
@@ -1366,7 +1366,7 @@ public class L3_A9_Graphe
 		gbcMain.gridy = 1;
 		gbcMain.gridx = 2;
 		gbcMain.gridwidth = 2;
-		JButton changeButton = new JButton("Changer de L3_A9_Graphe");
+		JButton changeButton = new JButton("Changer de Graphe");
 		bottomPanel.add(changeButton,gbcMain);
 		changeButton.addActionListener(new ActionListener()
 		{
