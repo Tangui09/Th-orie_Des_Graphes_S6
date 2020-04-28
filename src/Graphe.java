@@ -494,9 +494,9 @@ public class Graphe
 		
 		
 		
-		for(int verif_rang_0 = 0 ; verif_rang_0 < this.liste_sommets.get(verif_rang_0).get_nb_arc() ; verif_rang_0++)			// Véridions si tous les arcs partant du point d'entrée sont à valeur nulle
+		for(int verif_rang_0 = 0 ; verif_rang_0 < this.liste_sommets.get(position_rang_0).get_nb_arc() ; verif_rang_0++)			// Véridions si tous les arcs partant du point d'entrée sont à valeur nulle
 		{
-			if(this.liste_sommets.get(verif_rang_0).getArc(verif_rang_0).getValeur() != 0)
+			if(this.liste_sommets.get(position_rang_0).getArc(verif_rang_0).getValeur() != 0)
 			{
 				System.out.println("Pas de valeurs nulles pour tous les arcs incidents vers l’extérieur au point d’entrée !");
 				System.out.println("Ce n'est donc pas un graphe d'ordonnancement !");
